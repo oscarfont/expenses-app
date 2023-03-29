@@ -2,7 +2,7 @@ import { describe, it, expect, beforeAll } from 'vitest';
 import AuthManager from '../../src/routes/lib/server/infrastructure/auth/AuthManager';
 import type { IAuthManager } from '../../src/routes/lib/server/infrastructure/auth/authmanager.interface';
 
-describe('Spreadsheets domain object tests', () => {
+describe('AuthManager tests', () => {
 	let authManager: IAuthManager;
 
 	beforeAll(() => {
