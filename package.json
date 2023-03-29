@@ -32,5 +32,8 @@
 		"vite": "^4.2.0",
 		"vitest": "^0.29.0"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"google-auth-library": "^8.7.0"
+	}
 }
