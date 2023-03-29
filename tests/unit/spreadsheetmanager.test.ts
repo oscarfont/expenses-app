@@ -23,4 +23,28 @@ describe('Spreadsheets Manager tests', () => {
 		spreadhseetManager = new SpreadsheetManager(authManager, spreadsheet);
 		expect(spreadhseetManager.isClientInit()).toBeTruthy();
 	});
+
+	it('SpreadsheetManager addValue is not implemented yet', () => {
+		const spreadsheet = new Spreadsheet();
+		spreadhseetManager = new SpreadsheetManager(authManager, spreadsheet);
+		expect(spreadhseetManager.addValue('', 2)).toBe(spreadsheet);
+	});
+
+	it('SpreadsheetManager updateValue is not implemented yet', () => {
+		const spreadsheet = new Spreadsheet();
+		spreadhseetManager = new SpreadsheetManager(authManager, spreadsheet);
+		expect(spreadhseetManager.updateValue('', 2)).toBe(spreadsheet);
+	});
+
+	it('SpreadsheetManager createTab is not implemented yet', () => {
+		const spreadsheet = new Spreadsheet();
+		spreadhseetManager = new SpreadsheetManager(authManager, spreadsheet);
+		expect(spreadhseetManager.createTab('', 'SampleTab')).toBe(spreadsheet);
+	});
+
+	it('SpreadsheetManager createSheet is not implemented yet', () => {
+		const spreadsheet = new Spreadsheet();
+		spreadhseetManager = new SpreadsheetManager(authManager, spreadsheet);
+		expect(spreadhseetManager.createSheet('SAMPLESHEET')).toBe(spreadsheet);
+	});
 });

@@ -20,16 +20,20 @@ class SpreadsheetManager implements ISpreadsheetManager {
 	}
 
 	addValue(id: string, x: number): ISpreadsheet {
-		throw new Error('Method not implemented.');
+		// TODO: Implement method
+		return this.sheet!!;
 	}
 	updateValue(id: string, x: number): ISpreadsheet {
-		throw new Error('Method not implemented.');
+		// TODO: Implement method
+		return this.sheet!!;
 	}
 	createTab(id: string, name: string): ISpreadsheet {
-		throw new Error('Method not implemented.');
+		// TODO: Implement method
+		return this.sheet!!;
 	}
 	createSheet(name: string): ISpreadsheet {
-		throw new Error('Method not implemented.');
+		// TODO: Implement method
+		return this.sheet!!;
 	}
 }
 
