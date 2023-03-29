@@ -1,0 +1,36 @@
+import type { ISpreadsheet } from '../../domain/spreadsheet.interface';
+import type { ISpreadsheetManager } from './spreadsheetmanager.interface';
+import { google, sheets_v4 } from 'googleapis';
+import type { IAuthManager } from '../auth/authmanager.interface';
+
+class SpreadsheetManager implements ISpreadsheetManager {
+	public sheet?: ISpreadsheet;
+	private spreadsheetsClient: sheets_v4.Sheets;
+
+	constructor(auth: IAuthManager, sheet?: ISpreadsheet) {
+		this.spreadsheetsClient = google.sheets({
+			version: 'v4',
+			auth: auth.getToken()
+		});
+		this.sheet = sheet;
+	}
+
+	isClientInit(): boolean {
+		return this.spreadsheetsClient && typeof this.spreadsheetsClient.context == 'object';
+	}
+
+	addValue(id: string, x: number): ISpreadsheet {
+		throw new Error('Method not implemented.');
+	}
+	updateValue(id: string, x: number): ISpreadsheet {
+		throw new Error('Method not implemented.');
+	}
+	createTab(id: string, name: string): ISpreadsheet {
+		throw new Error('Method not implemented.');
+	}
+	createSheet(name: string): ISpreadsheet {
+		throw new Error('Method not implemented.');
+	}
+}
+
+export default SpreadsheetManager;

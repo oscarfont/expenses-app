@@ -34,6 +34,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"google-auth-library": "^8.7.0"
+		"google-auth-library": "^8.7.0",
+		"googleapis": "^105.0.0"
 	}
 }
