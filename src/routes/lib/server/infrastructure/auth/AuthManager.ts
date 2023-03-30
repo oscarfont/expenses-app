@@ -1,6 +1,7 @@
 import type { IAuthManager } from './authmanager.interface';
 import { JWT } from 'google-auth-library';
 import keys from './my-spreadsheets-api-605dd8409717.json';
+import { SECRET } from '$env/static/private';
 
 class AuthManager implements IAuthManager {
 	private authToken: JWT;
@@ -21,6 +22,10 @@ class AuthManager implements IAuthManager {
 
 	getScope(): Array<string> {
 		return [this.scopeUrl];
+	}
+
+	isAuthenticated(secret: string): boolean {
+		return secret === SECRET;
 	}
 }
 
