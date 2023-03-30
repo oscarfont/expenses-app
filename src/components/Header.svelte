@@ -4,8 +4,20 @@
 	import UserIcon from "./icons/UserIcon.svelte";
 </script>
 
-<div class="w-full bg-black">
-    <HomeIcon color={'var(--emerald)'}/>
-    <FileIcon color={'var(--emerald)'}/>
-    <UserIcon color={'var(--emerald)'}/>
-</div>
+<footer class="w-full bg-tom-thumb grid grid-rows-1 grid-cols-3">
+    <a href="/">
+        <HomeIcon color={'var(--gray-nurse)'}/>
+    </a>
+    <a href="/history">
+        <FileIcon color={'var(--gray-nurse)'}/>
+    </a>
+    <button>
+        <UserIcon color={'var(--gray-nurse)'}/>
+    </button>
+</footer>
+
+<style>
+    .bg-tom-thumb{
+        background-color: var(--tom-thumb);
+    }
+</style>

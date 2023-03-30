@@ -10,3 +10,9 @@
 	--granny-smith-apple: #a7e28d; /*Dark accent*/
 	--tom-thumb: #3a5c34; /*Dark shades*/
 }
+
+@layer utilities {
+	.bg-gray-nurse {
+		background-color: var(--gray-nurse);
+	}
+}
