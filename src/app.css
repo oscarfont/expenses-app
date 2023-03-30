@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+	/* color theme */
+	--gray-nurse: #d4f0d5; /*Light shades*/
+	--emerald: #46cd75; /*Light accent*/
+	--pewter: #99aca0; /*Main brand color*/
+	--granny-smith-apple: #a7e28d; /*Dark accent*/
+	--tom-thumb: #3a5c34; /*Dark shades*/
+}
