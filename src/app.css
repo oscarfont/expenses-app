@@ -9,10 +9,16 @@
 	--pewter: #99aca0; /*Main brand color*/
 	--granny-smith-apple: #a7e28d; /*Dark accent*/
 	--tom-thumb: #3a5c34; /*Dark shades*/
+
+	--max-width: 32rem;
 }
 
 @layer utilities {
 	.bg-gray-nurse {
 		background-color: var(--gray-nurse);
+	}
+
+	.max-width {
+		max-width: var(--max-width);
 	}
 }

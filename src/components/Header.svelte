@@ -4,7 +4,7 @@
 	import UserIcon from "./icons/UserIcon.svelte";
 </script>
 
-<footer class="w-full bg-tom-thumb flex flex-col green-shadow">
+<footer class="w-full max-width bg-tom-thumb flex flex-col green-shadow">
     <span class="w-full h-3 bg-transparent border-gray"></span>
     <span class="w-full bg-tom-thumb grid grid-rows-1 grid-cols-3">
         <a href="/">

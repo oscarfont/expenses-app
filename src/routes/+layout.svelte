@@ -1,5 +1,9 @@
 <script>
     import "../app.css";
+	import Header from "../components/Header.svelte";
 </script>
 
-<slot />
+<main class="w-screen h-screen flex flex-col items-center">
+    <slot />
+    <Header />
+</main>
