@@ -22,9 +22,15 @@
             {/each}
         </tbody>
         <tfoot>
+            <tr>
+                <td>Total</td>
+                <td></td>
+                <td></td>
+            </tr>
             {#each [...data.totals.keys()] as person}
                 <tr>
                     <td>{person}</td>
+                    <td></td>
                     <td>{data.totals.get(person)}</td>
                 </tr>
             {/each}

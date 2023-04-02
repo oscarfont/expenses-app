@@ -11,9 +11,7 @@ export async function load({ params }: { params: { month: string } }) {
 	try {
 		const auth = await authManager.getToken();
 		const spreadSheetManager = new SpreadsheetManager(auth);
-		console.log('retrieveing sheet...');
 		const sheet: ISpreadsheet = await getHistory(params.month, spreadSheetManager);
-		console.log('computing totals...');
 		const history = computeTotalSum(sheet);
 		return { rows: history.rows, totals: history.totals };
 	} catch (ex: any) {
