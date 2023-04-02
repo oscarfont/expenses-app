@@ -1,7 +1,7 @@
 import type { JWT } from 'google-auth-library';
 
 export interface IAuthManager {
-	getToken(): JWT;
+	getToken();
 	getScope(): Array<string>;
 	isAuthenticated(secret: string): boolean;
 }
