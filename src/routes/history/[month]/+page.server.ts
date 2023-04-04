@@ -15,7 +15,6 @@ export async function load({ params }: { params: { month: string } }) {
 		const history = computeTotalSum(sheet);
 		return { rows: history.rows, totals: history.totals };
 	} catch (ex: any) {
-		console.log(ex);
 		throw ex;
 	}
 }
