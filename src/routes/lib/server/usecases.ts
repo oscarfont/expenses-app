@@ -58,7 +58,6 @@ export const addExpense = async (
 
 		// check if for today there is a row for that person
 		const personRow = sheet.findRow(person, todayDate);
-		console.log(personRow);
 
 		// if there is get the amount already there
 		const formulaToAdd = personRow

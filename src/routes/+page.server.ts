@@ -14,8 +14,7 @@ export const actions = {
 			const person = data.get('persona')?.toString()!!;
 			const expense = parseFloat(data.get('gasto')?.toString()!!);
 
-			const rowsUpdated = await addExpense('Marzo', person, expense, spreadSheetManager);
-			console.log('rows updated: %d', rowsUpdated);
+			await addExpense('Marzo', person, expense, spreadSheetManager);
 		} catch (ex: any) {
 			throw ex;
 		}
