@@ -20,15 +20,44 @@ class SpreadsheetManager implements ISpreadsheetManager {
 		return this.spreadsheetsClient && typeof this.spreadsheetsClient.context == 'object';
 	}
 
-	addValue(id: string, x: number): ISpreadsheet {
-		// TODO: Implement method
-		return this.sheet!!;
+	async addValue(month: string, person: string, date: string, value: string): Promise<number> {
+		try {
+			const spreadsheetId = '1iiDe59t39Pk2QMOv0DBjWDuBOjP8rvSpFp0fpHE4T28';
+			const result = await this.spreadsheetsClient.spreadsheets.values.append({
+				spreadsheetId,
+				range: month,
+				valueInputOption: 'USER_ENTERED',
+				requestBody: {
+					values: [[person, date, 'comida', value]]
+				}
+			});
+			return result.data.updates?.updatedRows ? result.data.updates?.updatedRows : 0;
+		} catch (ex: any) {
+			throw ex;
+		}
 	}
-	updateValue(id: string, x: number): ISpreadsheet {
-		// TODO: Implement method
-		return this.sheet!!;
+
+	async updateValue(month: string, row: Map<number, Cell<any>[]>, value: string): Promise<number> {
+		try {
+			const spreadsheetId = '1iiDe59t39Pk2QMOv0DBjWDuBOjP8rvSpFp0fpHE4T28';
+			let rowNum = [...row.keys()].shift();
+			if (!rowNum) throw new Error('Row for this person today does not exist at the sheet');
+			rowNum++;
+			const result = await this.spreadsheetsClient.spreadsheets.values.update({
+				spreadsheetId,
+				range: `${month}!D${rowNum}`,
+				valueInputOption: 'USER_ENTERED',
+				requestBody: {
+					values: [[value]]
+				}
+			});
+			return result.data?.updatedRows ? result.data?.updatedRows : 0;
+		} catch (ex: any) {
+			throw ex;
+		}
 	}
-	createTab(id: string, name: string): ISpreadsheet {
+
+	createTab(name: string): ISpreadsheet {
 		// TODO: Implement method
 		return this.sheet!!;
 	}
@@ -45,7 +74,6 @@ class SpreadsheetManager implements ISpreadsheetManager {
 
 			return this.toSpreadSheet(id, res);
 		} catch (e: any) {
-			console.log(e);
 			throw e;
 		}
 	}

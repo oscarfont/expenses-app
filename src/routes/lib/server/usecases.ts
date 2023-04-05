@@ -38,3 +38,40 @@ export const computeTotalSum = (sheet: ISpreadsheet): IHistoryDto => {
 
 	return history;
 };
+
+export const addExpense = async (
+	month: string,
+	person: string,
+	expense: number,
+	spreadsheetManager: ISpreadsheetManager
+): Promise<number> => {
+	try {
+		// get historical data and todays date
+		const todayDate = new Date()
+			.toLocaleString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' })
+			.split(',')
+			.shift()!!;
+		const sheet = await getHistory(month, spreadsheetManager);
+		const treatedExpense = expense.toString().includes('.')
+			? expense.toString().replace('.', ',')
+			: expense.toString();
+
+		// check if for today there is a row for that person
+		const personRow = sheet.findRow(person, todayDate);
+		console.log(personRow);
+
+		// if there is get the amount already there
+		const formulaToAdd = personRow
+			? `=${[...personRow.entries()].shift()?.[1][3].value}+(${treatedExpense})`
+			: `=(${expense})`;
+
+		// use sheet manager to update or add the new expense
+		const rowsAffected = personRow
+			? await spreadsheetManager.updateValue(month, personRow, formulaToAdd)
+			: await spreadsheetManager.addValue(month, person, todayDate, formulaToAdd);
+
+		return rowsAffected;
+	} catch (e: any) {
+		throw e;
+	}
+};
