@@ -1,6 +1,7 @@
 import type { ISpreadsheet } from './domain/spreadsheet.interface';
 import HistoryDto from './dtos/HistoryDto';
 import type { IHistoryDto } from './dtos/IHistoryDto';
+import dateUtils from './infrastructure/dateutils';
 import type { ISpreadsheetManager } from './infrastructure/spreadsheets/spreadsheetmanager.interface';
 
 export const getHistory = async (
@@ -47,17 +48,17 @@ export const addExpense = async (
 ): Promise<number> => {
 	try {
 		// get historical data and todays date
-		const todayDate = new Date()
-			.toLocaleString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' })
-			.split(',')
-			.shift()!!;
-		const sheet = await getHistory(month, spreadsheetManager);
+		const currentMonthName = dateUtils.getCurrentMonthName();
+		const todayDate = dateUtils.getTodaysDateString();
 		const treatedExpense = expense.toString().includes('.')
 			? expense.toString().replace('.', ',')
 			: expense.toString();
 
+		// check if there is historical data for current month
+		const sheet = await getHistory(currentMonthName, spreadsheetManager);
+
 		// check if for today there is a row for that person
-		const personRow = sheet.findRow(person, todayDate);
+		/*const personRow = sheet.findRow(person, todayDate);
 
 		// if there is get the amount already there
 		const formulaToAdd = personRow
@@ -66,10 +67,11 @@ export const addExpense = async (
 
 		// use sheet manager to update or add the new expense
 		const rowsAffected = personRow
-			? await spreadsheetManager.updateValue(month, personRow, formulaToAdd)
+			? await spreadsheetManager.updateValue(currentMonthName, personRow, formulaToAdd)
 			: await spreadsheetManager.addValue(month, person, todayDate, formulaToAdd);
 
-		return rowsAffected;
+		return rowsAffected;*/
+		return 0;
 	} catch (e: any) {
 		throw e;
 	}
