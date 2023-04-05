@@ -58,7 +58,7 @@ export const addExpense = async (
 		const sheet = await getHistory(currentMonthName, spreadsheetManager);
 
 		// check if for today there is a row for that person
-		/*const personRow = sheet.findRow(person, todayDate);
+		const personRow = sheet.findRow(person, todayDate);
 
 		// if there is get the amount already there
 		const formulaToAdd = personRow
@@ -70,8 +70,7 @@ export const addExpense = async (
 			? await spreadsheetManager.updateValue(currentMonthName, personRow, formulaToAdd)
 			: await spreadsheetManager.addValue(month, person, todayDate, formulaToAdd);
 
-		return rowsAffected;*/
-		return 0;
+		return rowsAffected;
 	} catch (e: any) {
 		throw e;
 	}
