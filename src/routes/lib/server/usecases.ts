@@ -1,16 +1,18 @@
 import type { ISpreadsheet } from './domain/spreadsheet.interface';
+import BalanceDto from './dtos/BalanceDto';
 import HistoryDto from './dtos/HistoryDto';
+import type { IBalanceDto } from './dtos/IBalanceDto';
 import type { IHistoryDto } from './dtos/IHistoryDto';
 import dateUtils from './infrastructure/dateutils';
 import type { ISpreadsheetManager } from './infrastructure/spreadsheets/spreadsheetmanager.interface';
 
 export const getHistory = async (
-	month: string,
 	spreadsheetManager: ISpreadsheetManager
 ): Promise<ISpreadsheet> => {
 	try {
+		const currentMonthName = dateUtils.getCurrentMonthName();
 		const id = '1iiDe59t39Pk2QMOv0DBjWDuBOjP8rvSpFp0fpHE4T28';
-		const range = `${month}!A1:D`;
+		const range = `${currentMonthName}!A1:D`;
 		return await spreadsheetManager.readSheet(id, range);
 	} catch (ex: any) {
 		console.log(ex);
@@ -46,14 +48,8 @@ const createMonthSheet = async (
 ): Promise<ISpreadsheet> => {
 	try {
 		await spreadsheetManager.createTab(month);
-		const rows = await spreadsheetManager.addValue(month, [
-			'Persona',
-			'Fecha',
-			'Categoria',
-			'Valor'
-		]);
-		console.log('Rows updated %d', rows);
-		const sheet = await getHistory(month, spreadsheetManager);
+		await spreadsheetManager.addValue(month, ['Persona', 'Fecha', 'Categoria', 'Valor']);
+		const sheet = await getHistory(spreadsheetManager);
 		return sheet;
 	} catch (e: any) {
 		throw e;
@@ -61,7 +57,6 @@ const createMonthSheet = async (
 };
 
 export const addExpense = async (
-	month: string,
 	person: string,
 	expense: number,
 	spreadsheetManager: ISpreadsheetManager
@@ -77,7 +72,7 @@ export const addExpense = async (
 		// check if there is historical data for current month
 		let sheet: ISpreadsheet;
 		try {
-			sheet = await getHistory(currentMonthName, spreadsheetManager);
+			sheet = await getHistory(spreadsheetManager);
 		} catch (e: any) {
 			if (e?.response?.data?.error?.message.includes('parse')) {
 				try {
@@ -109,6 +104,21 @@ export const addExpense = async (
 			  ]);
 
 		return rowsAffected;
+	} catch (e: any) {
+		throw e;
+	}
+};
+
+export const computeBalance = async (
+	spreadsheetManager: ISpreadsheetManager
+): Promise<IBalanceDto> => {
+	try {
+		const sheet = await getHistory(spreadsheetManager);
+		const history = computeTotalSum(sheet);
+		const balance = new BalanceDto();
+		[...history.totals.keys()].forEach((person) => balance.computeBalanceOf(person, history));
+		balance.computeDefaulter();
+		return balance;
 	} catch (e: any) {
 		throw e;
 	}

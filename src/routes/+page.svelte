@@ -1,12 +1,16 @@
+<script>
+    export let data;
+</script>
+
 <section class="w-full h-full max-width flex flex-col border-x-solid border-x-2 border-red-500">
     <header>
-        Siguiente compra: ofontito
+        Siguiente compra: {data?.defaulter}
     </header>
     <body>
         <section class="flex flex-col">
             <div>Balance</div>
-            <div>ofontito: -8.00</div>
-            <div>claudita: +8.00</div>
+            <div>ofontito: {data?.personBalance.get('ofontito')}</div>
+            <div>claudita: {data?.personBalance.get('claudita')}</div>
         </section>
     </body>
     <footer class="flex flex-col">

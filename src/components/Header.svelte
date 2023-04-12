@@ -10,7 +10,7 @@
         <a href="/">
             <HomeIcon color={'var(--gray-nurse)'} className={'w-16 h-16 p-2'}/>
         </a>
-        <a href="/history/Marzo">
+        <a href="/history">
             <FileIcon color={'var(--gray-nurse)'} className={'w-16 h-16 p-2'}/>
         </a>
         <button>
