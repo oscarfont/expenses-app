@@ -8,9 +8,9 @@ export interface ISpreadsheetManager {
 
 	readSheet(id: string, range: string): Promise<ISpreadsheet>;
 
-	addValue(month: string, person: string, date: string, value: string): Promise<number>;
+	addValue(month: string, value: Array<any>): Promise<number>;
 	updateValue(month: string, row: Map<number, Cell<any>[]>, value: string): Promise<number>;
 
-	createTab(name: string): ISpreadsheet;
+	createTab(name: string): Promise<void>;
 	createSheet(name: string): ISpreadsheet;
 }

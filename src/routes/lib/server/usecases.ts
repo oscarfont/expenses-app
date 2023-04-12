@@ -40,6 +40,26 @@ export const computeTotalSum = (sheet: ISpreadsheet): IHistoryDto => {
 	return history;
 };
 
+const createMonthSheet = async (
+	month: string,
+	spreadsheetManager: ISpreadsheetManager
+): Promise<ISpreadsheet> => {
+	try {
+		await spreadsheetManager.createTab(month);
+		const rows = await spreadsheetManager.addValue(month, [
+			'Persona',
+			'Fecha',
+			'Categoria',
+			'Valor'
+		]);
+		console.log('Rows updated %d', rows);
+		const sheet = await getHistory(month, spreadsheetManager);
+		return sheet;
+	} catch (e: any) {
+		throw e;
+	}
+};
+
 export const addExpense = async (
 	month: string,
 	person: string,
@@ -55,7 +75,20 @@ export const addExpense = async (
 			: expense.toString();
 
 		// check if there is historical data for current month
-		const sheet = await getHistory(currentMonthName, spreadsheetManager);
+		let sheet: ISpreadsheet;
+		try {
+			sheet = await getHistory(currentMonthName, spreadsheetManager);
+		} catch (e: any) {
+			if (e?.response?.data?.error?.message.includes('parse')) {
+				try {
+					sheet = await createMonthSheet(currentMonthName, spreadsheetManager);
+				} catch (e: any) {
+					throw e;
+				}
+			} else {
+				throw e;
+			}
+		}
 
 		// check if for today there is a row for that person
 		const personRow = sheet.findRow(person, todayDate);
@@ -68,7 +101,12 @@ export const addExpense = async (
 		// use sheet manager to update or add the new expense
 		const rowsAffected = personRow
 			? await spreadsheetManager.updateValue(currentMonthName, personRow, formulaToAdd)
-			: await spreadsheetManager.addValue(month, person, todayDate, formulaToAdd);
+			: await spreadsheetManager.addValue(currentMonthName, [
+					person,
+					todayDate,
+					'comida',
+					formulaToAdd
+			  ]);
 
 		return rowsAffected;
 	} catch (e: any) {

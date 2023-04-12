@@ -20,7 +20,7 @@ class SpreadsheetManager implements ISpreadsheetManager {
 		return this.spreadsheetsClient && typeof this.spreadsheetsClient.context == 'object';
 	}
 
-	async addValue(month: string, person: string, date: string, value: string): Promise<number> {
+	async addValue(month: string, value: Array<any>): Promise<number> {
 		try {
 			const spreadsheetId = '1iiDe59t39Pk2QMOv0DBjWDuBOjP8rvSpFp0fpHE4T28';
 			const result = await this.spreadsheetsClient.spreadsheets.values.append({
@@ -28,7 +28,7 @@ class SpreadsheetManager implements ISpreadsheetManager {
 				range: month,
 				valueInputOption: 'USER_ENTERED',
 				requestBody: {
-					values: [[person, date, 'comida', value]]
+					values: [value]
 				}
 			});
 			return result.data.updates?.updatedRows ? result.data.updates?.updatedRows : 0;
@@ -57,9 +57,27 @@ class SpreadsheetManager implements ISpreadsheetManager {
 		}
 	}
 
-	createTab(name: string): ISpreadsheet {
-		// TODO: Implement method
-		return this.sheet!!;
+	async createTab(name: string): Promise<void> {
+		try {
+			const spreadsheetId = '1iiDe59t39Pk2QMOv0DBjWDuBOjP8rvSpFp0fpHE4T28';
+
+			await this.spreadsheetsClient.spreadsheets.batchUpdate({
+				spreadsheetId,
+				requestBody: {
+					requests: [
+						{
+							addSheet: {
+								properties: {
+									title: name
+								}
+							}
+						}
+					]
+				}
+			});
+		} catch (ex: any) {
+			throw ex;
+		}
 	}
 	createSheet(name: string): ISpreadsheet {
 		// TODO: Implement method
