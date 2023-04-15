@@ -1,7 +1,10 @@
 <script>
+	import Modal from "./Modal.svelte";
 	import FileIcon from "./icons/FileIcon.svelte";
     import HomeIcon from "./icons/HomeIcon.svelte";
 	import UserIcon from "./icons/UserIcon.svelte";
+
+	let showModal = false;
 </script>
 
 <footer class="w-full max-width bg-tom-thumb flex flex-col green-shadow">
@@ -13,10 +16,26 @@
         <a href="/history">
             <FileIcon color={'var(--gray-nurse)'} className={'w-16 h-16 p-2'}/>
         </a>
-        <button>
+        <button on:click={() => (showModal = true)}>
             <UserIcon color={'var(--gray-nurse)'} className={'w-16 h-16 p-2'}/>
         </button>
     </span>
+    <Modal bind:showModal>
+        <form class="flex flex-col p-2" method="POST">
+            <label class="flex flex-col p-2">
+              ¡Buenas! ¿quién eres tú 🧐?
+              <select name="persona" id="persona">
+                <option value="ofontito">ofontito</option>
+                <option value="claudita">claudita</option>
+              </select>        
+            </label>
+            <label class="flex flex-col p-2">
+               ¿Te sabes la contraseña súper secreta 🤔?
+              <input name="secret" id="secret" type="password">
+            </label>
+            <button type="submit">Enviar</button>
+        </form>
+    </Modal>
 </footer>
 
 <style>
