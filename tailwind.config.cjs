@@ -2,7 +2,13 @@
 module.exports = {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
 	theme: {
-		extend: {}
+		extend: {
+			fontFamily: {
+				firasans: ['FiraSans'],
+				maitree: ['Maitree'],
+				sintony: ['Sintony']
+			}
+		}
 	},
 	plugins: []
 };

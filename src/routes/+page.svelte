@@ -3,7 +3,7 @@
 </script>
 
 <section class="w-full h-full max-width flex flex-col border-x-solid border-x-2 border-red-500">
-    <header>
+    <header class="font-maitree">
         Siguiente compra: {data?.defaulter}
     </header>
     <body>

@@ -2,6 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+	font-family: 'FiraSans';
+	font-style: normal;
+	src: url('/fonts/FiraSans/FiraSans-Regular.ttf');
+}
+
+@font-face {
+	font-family: 'Maitree';
+	font-style: normal;
+	src: url('/fonts/Maitree/Maitree-Regular.ttf');
+}
+
+@font-face {
+	font-family: 'Sintony';
+	font-style: normal;
+	src: url('/fonts/Sintony/Sintony-Regular.ttf');
+}
+
 :root {
 	/* color theme */
 	--gray-nurse: #d4f0d5; /*Light shades*/
