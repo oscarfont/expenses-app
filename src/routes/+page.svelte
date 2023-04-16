@@ -39,12 +39,10 @@
                     <img class="w-24 rounded-sm" src={`/claudita.png`} alt="avatar of user"/> {data?.personBalance.get('claudita')}
                 </div>
             </div>
+            <div class="w-full max-h-1/4 flex gap-2 font-firasans text-4xl md:text-4xl text-tom-thumb bg-pewter-dark px-8 py-4">
+                <span class="flex items-center justify-center">Gasto total:</span> 
+                <span class="flex items-center justify-center">{total.toFixed(2) ?? '0.00'} €</span>
+            </div>
         </section>
     </body>
-    <footer class="max-h-1/4 flex flex-col px-8">
-        <div class="w-full max-h-1/4 font-firasans text-4xl md:text-6xl text-tom-thumb flex gap-2 pb-8">
-            <span class="flex items-center justify-center">Total:</span> 
-            <span class="flex items-center justify-center">{total.toFixed(2) ?? '0.00'} €</span>
-        </div>
-    </footer>
 </section>
