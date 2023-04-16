@@ -1,23 +1,24 @@
 <script>
-	import Total from "../components/Total.svelte";
 	import SendIcon from "../components/icons/SendIcon.svelte";
 
     export let data;
+    const mes = 'Abril';
+    const total = 17.5;
 </script>
 
 <section class="w-full h-full max-width flex flex-col border-x-solid border-x-2 border-red-500">
-    <header class="w-full max-h-1/4 pt-2 grid grid-cols-12 font-firasans text-4xl text-emerald-light bg-pewter-dark shadow-md">
-        <span class="flex items-center justify-center col-span-10 md:col-span-8 border-t-4 border-emerald-light ">Siguiente compra</span> 
-        <span class="col-span-2 p-1 md:col-span-4 border-t-4 border-emerald-light ">
-            <img class="w-24 rounded-sm p-2" src={`/${data?.defaulter}.png`} alt="avatar of defaulter"/>
+    <header class="w-full max-h-1/4 pt-2 grid grid-cols-12 font-firasans text-4xl text-emerald-light bg-pewter-dark">
+        <span class="flex items-center justify-center col-span-10 md:col-span-8 border-t-4 border-tom-thumb">Siguiente compra</span> 
+        <span class="col-span-2 p-1 md:col-span-4 border-t-4 border-tom-thumb ">
+            <img class="w-32 rounded-sm p-2" src={`/${data?.defaulter}.png`} alt="avatar of defaulter"/>
         </span>
     </header>
     <body class="max-h-1/2">
-        <form class="flex flex-col" method="POST">
+        <form class="flex flex-col py-8 gap-4" method="POST">
             <div class="w-full flex justify-center gap-2 font-maitree text-2xl text-tom-thumb">
-                <span class="py-8 flex items-center">¡Hola, </span>
-                <span class="py-8 flex items-center gap-2"><img class="w-16 rounded-sm" src={`/ofontito.png`} alt="avatar of user"/>!</span>
-                <span class="flex items-center">¿Cuanto te has gastado?</span>
+                <span class="py-4 flex items-center">¡Hola, </span>
+                <span class="py-4 flex items-center gap-2"><img class="w-16 rounded-sm" src={`/ofontito.png`} alt="avatar of user"/>!</span>
+                <span class="flex items-center">¿Cuánto te has gastado?</span>
             </div>
             <div class="w-full flex gap-4 justify-center px-8">
                 <label class="w-full flex flex-col">
@@ -28,13 +29,22 @@
                 </button>
             </div> 
         </form>
-        <section class="flex flex-col">
-            <div>Balance</div>
-            <div>ofontito: {data?.personBalance.get('ofontito')}</div>
-            <div>claudita: {data?.personBalance.get('claudita')}</div>
+        <section class="w-full flex flex-col text-4xl py-8">
+            <span class="w-full flex justify-center py-4 font-firasans text-tom-thumb bg-pewter-dark">Balance {mes}</span>
+            <div class="w-full flex justify-between px-8 bg-pewter-dark">
+                <div class="flex flex-col gap-4 items-center p-2 font-maitree text-emerald-light">
+                    <img class="w-24 rounded-sm" src={`/ofontito.png`} alt="avatar of user"/> {data?.personBalance.get('ofontito')}
+                </div>
+                <div class="flex flex-col gap-4 items-center p-2 font-maitree text-emerald-light">
+                    <img class="w-24 rounded-sm" src={`/claudita.png`} alt="avatar of user"/> {data?.personBalance.get('claudita')}
+                </div>
+            </div>
         </section>
     </body>
-    <footer class="max-h-1/4 flex flex-col">
-        <Total valor={3.75}/>
+    <footer class="max-h-1/4 flex flex-col px-8">
+        <div class="w-full max-h-1/4 font-firasans text-4xl md:text-6xl text-tom-thumb flex gap-2 pb-8">
+            <span class="flex items-center justify-center">Total:</span> 
+            <span class="flex items-center justify-center">{total.toFixed(2) ?? '0.00'} €</span>
+        </div>
     </footer>
 </section>
