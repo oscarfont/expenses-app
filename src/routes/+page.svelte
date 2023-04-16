@@ -6,7 +6,7 @@
     const total = 17.5;
 </script>
 
-<section class="w-full h-full max-width flex flex-col border-x-solid border-x-2 border-red-500">
+<section class="w-full h-full max-width flex flex-col border-x-solid border-x-2 border-tom-thumb">
     <header class="w-full max-h-1/4 pt-2 grid grid-cols-12 font-firasans text-4xl text-gray-nurse bg-pewter-dark">
         <span class="flex items-center justify-center col-span-10 md:col-span-8 border-t-4 border-tom-thumb">Siguiente compra</span> 
         <span class="col-span-2 p-1 md:col-span-4 border-t-4 border-tom-thumb ">
@@ -38,9 +38,9 @@
                     <img class="w-24 rounded-sm" src={`/claudita.png`} alt="avatar of user"/> {data?.personBalance.get('claudita')}
                 </div>
             </div>
-            <div class="w-full max-h-1/4 flex gap-2 font-firasans text-4xl md:text-4xl text-tom-thumb bg-pewter-dark px-8 py-8">
-                <span class="flex items-center justify-center">Gasto total:</span> 
-                <span class="flex items-center justify-center">{total.toFixed(2) ?? '0.00'} €</span>
+            <div class="w-full max-h-1/4 flex gap-2 font-firasans text-4xl md:text-4xl bg-pewter-dark px-8 py-8">
+                <span class="flex items-center justify-center text-tom-thumb">Gasto total:</span> 
+                <span class="flex items-center justify-center text-gray-nurse">{total.toFixed(2) ?? '0.00'} €</span>
             </div>
         </section>
     </body>
