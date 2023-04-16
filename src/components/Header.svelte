@@ -1,23 +1,31 @@
-<script>
+<script lang="ts">
 	import Modal from "./Modal.svelte";
 	import FileIcon from "./icons/FileIcon.svelte";
     import HomeIcon from "./icons/HomeIcon.svelte";
 	import UserIcon from "./icons/UserIcon.svelte";
+    import { page } from '$app/stores';
 
 	let showModal = false;
+    let path: string;
+    const homePath = "/";
+    const historyPath = "/history";
+    const activeColor = "var(--gray-nurse)";
+    const activeStroke = "2";
+
+    $: path = $page.url.pathname;
 </script>
 
 <footer class="w-full max-width bg-pewter-dark flex flex-col">
     <span class="w-full h-3 bg-transparent border-b-4 border-solid border-tom-thumb"></span>
     <span class="w-full bg-pewter-dark grid grid-rows-1 grid-cols-3">
-        <a href="/" class="flex justify-end">
-            <HomeIcon color={'var(--tom-thumb)'} className={'w-16 h-16 p-2'}/>
+        <a href={homePath} class="flex justify-end">
+            <HomeIcon color={path === homePath ? activeColor : 'var(--tom-thumb)'} className={'w-16 h-16 p-2'} stroke={path === homePath ? activeStroke : "1"}/>
         </a>
-        <a href="/history" class="flex justify-center">
-            <FileIcon color={'var(--tom-thumb)'} className={'w-16 h-16 p-2'}/>
+        <a href={historyPath} class="flex justify-center">
+            <FileIcon color={path === historyPath ? activeColor : 'var(--tom-thumb)'} className={'w-16 h-16 p-2'} stroke={path === historyPath ? activeStroke : "1"}/>
         </a>
         <button on:click={() => (showModal = true)} class="flex justify-start">
-            <UserIcon color={'var(--tom-thumb)'} className={'w-16 h-16 p-2'}/>
+            <UserIcon color={showModal ? activeColor : 'var(--tom-thumb)'} className={'w-16 h-16 p-2'} stroke={showModal ? activeStroke : "1"}/>
         </button>
     </span>
     <Modal bind:showModal>

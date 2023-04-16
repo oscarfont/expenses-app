@@ -22,8 +22,8 @@
 
 :root {
 	/* color theme */
-	/*--gray-nurse: #d4f0d5; Light shades*/
-	--emerald: #46cd75; /*Light accent*/
+	--gray-nurse: #d4f0d5; /*Light shades*/
+	/*--emerald: #46cd75; Light accent*/
 	--pewter: #99aca0; /*Main brand color*/
 	--pewter-darker: #84948a; /*Main brand darker*/
 	--granny-smith-apple: #a7e28d; /*Dark accent*/
