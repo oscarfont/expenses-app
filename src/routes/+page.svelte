@@ -5,10 +5,10 @@
 </script>
 
 <section class="w-full h-full max-width flex flex-col border-x-solid border-x-2 border-red-500">
-    <header class="w-full max-h-1/4 pt-4 grid grid-cols-12 font-firasans text-4xl text-gray-nurse">
-        <span class="flex items-center justify-center col-span-10 md:col-span-8 md:ml-2 rounded-full bg-tom-thumb shadow-md">Siguiente compra</span> 
-        <span class="col-span-2 p-1 md:col-span-4">
-            <img class="w-24 rounded-full bg-tom-thumb shadow-md p-2" src={`/${data?.defaulter}.png`} alt="avatar of defaulter"/>
+    <header class="w-full max-h-1/4 pt-2 grid grid-cols-12 font-firasans text-3xl text-emerald-light bg-pewter-dark shadow-md">
+        <span class="flex items-center justify-center col-span-10 md:col-span-8 border-t-4 border-emerald-light ">Siguiente compra</span> 
+        <span class="col-span-2 p-1 md:col-span-4 border-t-4 border-emerald-light ">
+            <img class="w-24 rounded-full p-2" src={`/${data?.defaulter}.png`} alt="avatar of defaulter"/>
         </span>
     </header>
     <body class="max-h-1/2">
