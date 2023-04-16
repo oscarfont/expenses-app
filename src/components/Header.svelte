@@ -7,6 +7,7 @@
 
 	let showModal = false;
     let path: string;
+    let persona = "ofontito";
     const homePath = "/";
     const historyPath = "/history";
     const activeColor = "var(--gray-nurse)";
@@ -30,15 +31,19 @@
     </span>
     <Modal bind:showModal>
         <form class="flex flex-col p-2" method="POST">
+            <span class="font-firasans text-tom-thumb text-2xl p-2">¡Buenas! ¿quién eres tú 🧐?</span>
+            <div class="flex gap-4">
+                <label class="flex gap-2 p-2">
+                    <input type="radio" bind:group={persona} value="ofontito"/> 
+                    <img class="w-24" id="persona-ofontito" src={`/ofontito.png`} alt="avatar of user"/>       
+                </label>
+                <label class="flex gap-2 p-2">
+                    <input type="radio" bind:group={persona} value="claudita"/> 
+                    <img class="w-24" id="persona-claudita" src={`/claudita.png`} alt="avatar of user"/>       
+                </label>
+            </div>
             <label class="flex flex-col p-2">
-              ¡Buenas! ¿quién eres tú 🧐?
-              <select name="persona" id="persona">
-                <option value="ofontito">ofontito</option>
-                <option value="claudita">claudita</option>
-              </select>        
-            </label>
-            <label class="flex flex-col p-2">
-               ¿Te sabes la contraseña súper secreta 🤔?
+               <span class="font-firasans text-tom-thumb text-2xl p-2">¿Te sabes la contraseña 🤔?</span>
               <input name="secret" id="secret" type="password">
             </label>
             <button type="submit">Enviar</button>
