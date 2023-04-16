@@ -46,7 +46,7 @@
             <label class="flex flex-col p-2">
                <span class="font-firasans text-tom-thumb text-2xl p-2">¿Te sabes la contraseña 🤔?</span>
                <div class="flex gap-2">
-                    <input name="secret" id="secret" type="password" class="bg-pewter-light p-2 text-tom-thumb rounded-sm">
+                    <input name="secret" id="secret" type="password" class="bg-pewter-dark p-2 text-tom-thumb rounded-sm">
                     <button type="submit" class="bg-tom-thumb rounded-sm">
                         <SendIcon color={'var(--gray-nurse)'} className={'w-12 h-12 p-2'}/>
                     </button>
