@@ -11,13 +11,13 @@
     <span class="w-full h-3 bg-transparent border-gray"></span>
     <span class="w-full bg-tom-thumb grid grid-rows-1 grid-cols-3">
         <a href="/">
-            <HomeIcon color={'var(--gray-nurse)'} className={'w-16 h-16 p-2'}/>
+            <HomeIcon color={'var(--pewter)'} className={'w-16 h-16 p-2'}/>
         </a>
         <a href="/history">
-            <FileIcon color={'var(--gray-nurse)'} className={'w-16 h-16 p-2'}/>
+            <FileIcon color={'var(--pewter)'} className={'w-16 h-16 p-2'}/>
         </a>
         <button on:click={() => (showModal = true)}>
-            <UserIcon color={'var(--gray-nurse)'} className={'w-16 h-16 p-2'}/>
+            <UserIcon color={'var(--pewter)'} className={'w-16 h-16 p-2'}/>
         </button>
     </span>
     <Modal bind:showModal>
@@ -44,7 +44,7 @@
     }
     
     .border-gray{
-        border-bottom: 4px solid var(--gray-nurse)
+        border-bottom: 4px solid var(--pewter)
     }
 
     .green-shadow{
