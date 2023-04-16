@@ -14,9 +14,11 @@
 	on:click|self={() => dialog.close()}
 >
 	<div on:click|stopPropagation>
+        <div class="w-full flex justify-end font-firasans text-tom-thumb text-xl">
+            <!-- svelte-ignore a11y-autofocus -->
+		    <button autofocus on:click={() => dialog.close()}>x</button>
+        </div>
 		<slot />
-		<!-- svelte-ignore a11y-autofocus -->
-		<button autofocus on:click={() => dialog.close()}>Cerrar</button>
 	</div>
 </dialog>
 

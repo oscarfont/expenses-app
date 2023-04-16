@@ -4,6 +4,7 @@
     import HomeIcon from "./icons/HomeIcon.svelte";
 	import UserIcon from "./icons/UserIcon.svelte";
     import { page } from '$app/stores';
+	import SendIcon from "./icons/SendIcon.svelte";
 
 	let showModal = false;
     let path: string;
@@ -44,9 +45,13 @@
             </div>
             <label class="flex flex-col p-2">
                <span class="font-firasans text-tom-thumb text-2xl p-2">¿Te sabes la contraseña 🤔?</span>
-              <input name="secret" id="secret" type="password">
+               <div class="flex gap-2">
+                    <input name="secret" id="secret" type="password" class="bg-pewter-light p-2 text-tom-thumb rounded-sm">
+                    <button type="submit" class="bg-tom-thumb rounded-sm">
+                        <SendIcon color={'var(--gray-nurse)'} className={'w-12 h-12 p-2'}/>
+                    </button>
+               </div>
             </label>
-            <button type="submit">Enviar</button>
         </form>
     </Modal>
 </footer>
