@@ -40,4 +40,10 @@
 	.max-width {
 		max-width: var(--max-width);
 	}
+
+	.green-shadow {
+		-webkit-box-shadow: -1px 0px 5px 0px var(--tom-thumb);
+		-moz-box-shadow: -1px 0px 5px 0px var(--tom-thumb);
+		box-shadow: -1px 0px 5px 0px var(--tom-thumb);
+	}
 }
