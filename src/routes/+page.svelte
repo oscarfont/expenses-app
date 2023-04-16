@@ -14,10 +14,9 @@
         </span>
     </header>
     <body class="max-h-1/2">
-        <form class="flex flex-col py-8 gap-4" method="POST">
-            <div class="w-full flex justify-center gap-2 font-maitree text-2xl text-tom-thumb">
-                <span class="py-4 flex items-center">¡Hola, </span>
-                <span class="py-4 flex items-center gap-2"><img class="w-16 rounded-sm" src={`/ofontito.png`} alt="avatar of user"/>!</span>
+        <form class="flex flex-col py-8 gap-8" method="POST">
+            <div class="w-full flex flex-col gap-2 px-8 font-maitree text-3xl text-tom-thumb">
+                <span class="py-4 flex items-center gap-4">¡Hola, <img class="w-16 rounded-sm" src={`/ofontito.png`} alt="avatar of user"/>!</span>
                 <span class="flex items-center">¿Cuánto te has gastado?</span>
             </div>
             <div class="w-full flex gap-4 justify-center px-8">
@@ -30,7 +29,7 @@
             </div> 
         </form>
         <section class="w-full flex flex-col text-4xl py-8">
-            <span class="w-full flex justify-center py-4 font-firasans text-tom-thumb bg-pewter-dark">Balance {mes}</span>
+            <span class="w-full flex px-8 py-4 font-firasans text-tom-thumb bg-pewter-dark">Balance {mes}</span>
             <div class="w-full flex justify-between px-8 bg-pewter-dark">
                 <div class="flex flex-col gap-4 items-center p-2 font-maitree text-emerald-light">
                     <img class="w-24 rounded-sm" src={`/ofontito.png`} alt="avatar of user"/> {data?.personBalance.get('ofontito')}
@@ -39,7 +38,7 @@
                     <img class="w-24 rounded-sm" src={`/claudita.png`} alt="avatar of user"/> {data?.personBalance.get('claudita')}
                 </div>
             </div>
-            <div class="w-full max-h-1/4 flex gap-2 font-firasans text-4xl md:text-4xl text-tom-thumb bg-pewter-dark px-8 py-4">
+            <div class="w-full max-h-1/4 flex gap-2 font-firasans text-4xl md:text-4xl text-tom-thumb bg-pewter-dark px-8 py-8">
                 <span class="flex items-center justify-center">Gasto total:</span> 
                 <span class="flex items-center justify-center">{total.toFixed(2) ?? '0.00'} €</span>
             </div>

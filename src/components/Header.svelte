@@ -10,13 +10,13 @@
 <footer class="w-full max-width bg-pewter-dark flex flex-col">
     <span class="w-full h-3 bg-transparent border-b-4 border-solid border-tom-thumb"></span>
     <span class="w-full bg-pewter-dark grid grid-rows-1 grid-cols-3">
-        <a href="/">
+        <a href="/" class="flex justify-end">
             <HomeIcon color={'var(--tom-thumb)'} className={'w-16 h-16 p-2'}/>
         </a>
-        <a href="/history">
+        <a href="/history" class="flex justify-center">
             <FileIcon color={'var(--tom-thumb)'} className={'w-16 h-16 p-2'}/>
         </a>
-        <button on:click={() => (showModal = true)}>
+        <button on:click={() => (showModal = true)} class="flex justify-start">
             <UserIcon color={'var(--tom-thumb)'} className={'w-16 h-16 p-2'}/>
         </button>
     </span>
