@@ -14,7 +14,7 @@
         </span>
     </header>
     <body class="max-h-1/2">
-        <form class="flex flex-col py-8 gap-8" method="POST">
+        <form class="flex flex-col py-8 gap-8" method="POST" action="/addExpense">
             <div class="w-full flex flex-col gap-2 px-8 font-maitree text-3xl text-tom-thumb">
                 <span class="py-4 flex items-center gap-4">¡Hola, <img class="w-16 rounded-sm" src={`/ofontito.png`} alt="avatar of user"/>!</span>
                 <span class="flex items-center">¿Cuánto te has gastado?</span>

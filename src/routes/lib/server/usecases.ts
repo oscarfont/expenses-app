@@ -5,6 +5,9 @@ import type { IBalanceDto } from './dtos/IBalanceDto';
 import type { IHistoryDto } from './dtos/IHistoryDto';
 import dateUtils from './infrastructure/dateutils';
 import type { ISpreadsheetManager } from './infrastructure/spreadsheets/spreadsheetmanager.interface';
+import type { IJwtManager } from './infrastructure/jwt/IJwtManager';
+import { error } from '@sveltejs/kit';
+import { env } from '$env/dynamic/private';
 
 export const getHistory = async (
 	spreadsheetManager: ISpreadsheetManager
@@ -119,6 +122,20 @@ export const computeBalance = async (
 		[...history.totals.keys()].forEach((person) => balance.computeBalanceOf(person, history));
 		balance.computeDefaulter();
 		return balance;
+	} catch (e: any) {
+		throw e;
+	}
+};
+
+export const logIn = async (
+	user: string,
+	pass: string,
+	jwtManager: IJwtManager
+): Promise<{ token: string }> => {
+	try {
+		if (pass !== env.SECRET) throw error(401, { message: 'Wrong password' });
+		const jwt = await jwtManager.generateToken({ user });
+		return { token: jwt };
 	} catch (e: any) {
 		throw e;
 	}

@@ -5,16 +5,46 @@
 	import UserIcon from "./icons/UserIcon.svelte";
     import { page } from '$app/stores';
 	import SendIcon from "./icons/SendIcon.svelte";
+    import { storable } from '../routes/store/store'
+	import type { ActionResult } from "@sveltejs/kit";
+	import { applyAction, deserialize } from "$app/forms";
+	import { invalidateAll } from "$app/navigation";
 
 	let showModal = false;
     let path: string;
     let persona = "ofontito";
+    let error = "";
+    let store;
     const homePath = "/";
     const historyPath = "/history";
     const activeColor = "var(--gray-nurse)";
     const activeStroke = "2";
 
     $: path = $page.url.pathname;
+
+    const handleSubmit = async (event: SubmitEvent) => {
+        event.preventDefault();
+        const formData = new FormData(event.target as HTMLFormElement);
+
+        formData.append('user', persona);
+
+        const response = await fetch('?/auth', {
+            method: 'POST',
+            body: formData,
+        });
+
+        if(!response.ok) error = `Contraseña incorrecta. ¿Seguro que eres ${persona}...? 🤔`;
+        
+        const result: ActionResult = deserialize(await response.text());
+
+        if (result.type === 'success') {
+            store = storable({user: persona, token: result.data?.token});
+            // re-run all `load` functions, following the successful update            
+            await invalidateAll();
+        }
+
+        applyAction(result);
+    }
 </script>
 
 <footer class="w-full max-width bg-pewter-dark flex flex-col">
@@ -31,18 +61,18 @@
         </button>
     </span>
     <Modal bind:showModal>
-        <form class="flex flex-col p-2" method="POST">
+        <form class="flex flex-col p-2" method="POST" action="?/auth" on:submit={handleSubmit}>
             <span class="font-firasans text-tom-thumb text-2xl p-2">¡Buenas! ¿quién eres tú 🧐?</span>
-            <div class="flex gap-4">
-                <label class="flex gap-2 p-2">
-                    <input type="radio" bind:group={persona} value="ofontito"/> 
-                    <img class="w-24" id="persona-ofontito" src={`/ofontito.png`} alt="avatar of user"/>       
-                </label>
-                <label class="flex gap-2 p-2">
-                    <input type="radio" bind:group={persona} value="claudita"/> 
-                    <img class="w-24" id="persona-claudita" src={`/claudita.png`} alt="avatar of user"/>       
-                </label>
-            </div>
+            <label class="flex gap-4">
+                <span class="flex gap-2 p-2">
+                    <input type="radio" bind:group={persona} id="persona-ofontito" value="ofontito"/> 
+                    <img class="w-24" src={`/ofontito.png`} alt="avatar of user"/>       
+                </span>
+                <span class="flex gap-2 p-2">
+                    <input type="radio" bind:group={persona} id="persona-claudita" value="claudita"/> 
+                    <img class="w-24" src={`/claudita.png`} alt="avatar of user"/>       
+                </span>
+            </label>
             <label class="flex flex-col p-2">
                <span class="font-firasans text-tom-thumb text-2xl p-2">¿Te sabes la contraseña 🤔?</span>
                <div class="flex gap-2">
@@ -51,6 +81,7 @@
                         <SendIcon color={'var(--gray-nurse)'} className={'w-12 h-12 p-2'}/>
                     </button>
                </div>
+               {#if error && error !== ""}<span class="font-sintony text-xs text-error-red">{error}</span>{/if}
             </label>
         </form>
     </Modal>

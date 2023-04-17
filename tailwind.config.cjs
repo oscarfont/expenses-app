@@ -15,7 +15,8 @@ module.exports = {
 			'pewter-light': '#99aca0' /*Main brand color*/,
 			'pewter-dark': '#839489' /*Main brand dark color*/,
 			'granny-smith-apple': '#a7e28d' /*Dark accent*/,
-			'tom-thumb': '#3a5c34' /*Dark shades*/
+			'tom-thumb': '#3a5c34' /*Dark shades*/,
+			'error-red': 'rgb(153 27 27)'
 		}
 	},
 	plugins: []
