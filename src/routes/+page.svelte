@@ -1,11 +1,12 @@
 <script lang="ts">
 	import SendIcon from "../components/icons/SendIcon.svelte";
+	import UnkownUserIcon from "../components/icons/UnkownUserIcon.svelte";
 
     export let data;
     const mes = 'Abril';
     const total = 17.5;
-    const isBrowser: boolean = typeof window !== 'undefined';
-    const { user } = isBrowser && localStorage?.storable ? JSON.parse(window.localStorage.storable) : { user:'ofontito' };
+    const thereIsLocalStorage: boolean = typeof window !== 'undefined' && localStorage?.storable;
+    const { user } = thereIsLocalStorage ? JSON.parse(window.localStorage.storable) : "";
 </script>
 
 <section class="w-full h-full max-width flex flex-col border-x-solid border-x-2 border-tom-thumb">
@@ -16,18 +17,30 @@
         </span>
     </header>
     <body class="max-h-1/2">
-        <form class="flex flex-col py-8 gap-8" method="POST" action="/addExpense">
+        <form class="flex flex-col py-4 gap-8" method="POST" action="/addExpense">
             <div class="w-full flex flex-col gap-2 px-8 font-maitree text-3xl text-tom-thumb">
-                <span class="py-4 flex items-center gap-4">¡Hola, <img class="w-16 rounded-sm" src={`/${user}.png`} alt="avatar of user"/>!</span>
+                <span class="py-4 flex items-center gap-4">
+                    ¡Hola,
+                    {#if thereIsLocalStorage}
+                        <img class="w-16 rounded-sm" src={`/${user}.png`} alt="avatar of user"/>
+                    {:else}
+                        <UnkownUserIcon color={'var(--tom-thumb)'} className={'w-16 h-16'} stroke={"2"}/>
+                    {/if}!
+                </span>
                 <span class="flex items-center">¿Cuánto te has gastado?</span>
             </div>
-            <div class="w-full flex gap-4 justify-center px-8">
+            <div class="w-full flex flex-col gap-2 justify-center px-8">
                 <label class="w-full flex flex-col">
-                  <input name="gasto" id="gasto" type="number" class="bg-pewter-dark p-4 font-sintony text-tom-thumb rounded-sm" step=".01">
+                    <input name="fecha" id="fecha" type="date" class="bg-pewter-dark p-4 font-sintony text-tom-thumb rounded-sm">
                 </label>
-                <button type="submit" class="bg-tom-thumb rounded-sm">
-                    <SendIcon color={'var(--gray-nurse)'} className={'w-12 h-12 p-2'}/>
-                </button>
+                <div class="w-full flex gap-4">
+                    <label class="w-full flex flex-col">
+                        <input name="gasto" id="gasto" type="number" class="bg-pewter-dark p-4 font-sintony text-tom-thumb rounded-sm" step=".01">
+                      </label>
+                      <button type="submit" class="bg-tom-thumb rounded-sm">
+                          <SendIcon color={'var(--gray-nurse)'} className={'w-12 h-12 p-2'}/>
+                      </button>
+                </div>
             </div> 
         </form>
         <section class="w-full flex flex-col text-4xl py-8">
