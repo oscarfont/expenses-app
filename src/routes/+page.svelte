@@ -1,9 +1,11 @@
-<script>
+<script lang="ts">
 	import SendIcon from "../components/icons/SendIcon.svelte";
 
     export let data;
     const mes = 'Abril';
     const total = 17.5;
+    const isBrowser: boolean = typeof window !== 'undefined';
+    const { user } = isBrowser && localStorage?.storable ? JSON.parse(window.localStorage.storable) : { user:'ofontito' };
 </script>
 
 <section class="w-full h-full max-width flex flex-col border-x-solid border-x-2 border-tom-thumb">
@@ -16,7 +18,7 @@
     <body class="max-h-1/2">
         <form class="flex flex-col py-8 gap-8" method="POST" action="/addExpense">
             <div class="w-full flex flex-col gap-2 px-8 font-maitree text-3xl text-tom-thumb">
-                <span class="py-4 flex items-center gap-4">¡Hola, <img class="w-16 rounded-sm" src={`/ofontito.png`} alt="avatar of user"/>!</span>
+                <span class="py-4 flex items-center gap-4">¡Hola, <img class="w-16 rounded-sm" src={`/${user}.png`} alt="avatar of user"/>!</span>
                 <span class="flex items-center">¿Cuánto te has gastado?</span>
             </div>
             <div class="w-full flex gap-4 justify-center px-8">

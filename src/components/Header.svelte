@@ -7,14 +7,12 @@
 	import SendIcon from "./icons/SendIcon.svelte";
     import { storable } from '../routes/store/store'
 	import type { ActionResult } from "@sveltejs/kit";
-	import { applyAction, deserialize } from "$app/forms";
-	import { invalidateAll } from "$app/navigation";
+	import { deserialize } from "$app/forms";
 
 	let showModal = false;
     let path: string;
     let persona = "ofontito";
     let error = "";
-    let store;
     const homePath = "/";
     const historyPath = "/history";
     const activeColor = "var(--gray-nurse)";
@@ -38,12 +36,11 @@
         const result: ActionResult = deserialize(await response.text());
 
         if (result.type === 'success') {
-            store = storable({user: persona, token: result.data?.token});
-            // re-run all `load` functions, following the successful update            
-            await invalidateAll();
+            const store = storable({user: persona, token: result.data?.token});
+            store.set({user: persona, token: result.data?.token});
         }
 
-        applyAction(result);
+        window.location.reload();
     }
 </script>
 
