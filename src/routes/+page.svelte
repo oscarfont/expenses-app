@@ -26,7 +26,7 @@
     }
 </script>
 
-<section class="w-full h-full max-width flex flex-col border-x-solid border-x-2 border-tom-thumb">
+<section class="w-full h-full max-width flex flex-col border-x-solid border-x-2 border-tom-thumb overflow-y-auto">
     <header class="w-full max-h-1/4 pt-2 grid grid-cols-12 font-firasans text-4xl text-gray-nurse bg-pewter-dark">
         <span class="flex items-center justify-center col-span-10 md:col-span-8 border-t-4 border-tom-thumb">Siguiente compra</span> 
         <span class="col-span-2 p-1 md:col-span-4 border-t-4 border-tom-thumb ">
