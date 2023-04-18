@@ -3,7 +3,7 @@
     export let data: PageData;
     const mes = 'Abril';
 </script>
-<section class="w-full h-full max-width flex flex-col border-x-solid border-x-2 border-tom-thumb">
+<section class="w-full h-full max-width flex flex-col">
     <header class="w-full flex py-2 font-firasans text-4xl bg-pewter-dark">
         <span class="w-full py-2 px-8 text-gray-nurse border-t-4 border-tom-thumb">Historico {mes}</span>
     </header>
