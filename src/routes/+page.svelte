@@ -32,7 +32,11 @@
     <header class="w-full max-h-1/4 pt-2 grid grid-cols-12 font-firasans text-4xl text-gray-nurse bg-pewter-dark">
         <span class="flex items-center justify-center col-span-10 md:col-span-8 border-t-4 border-tom-thumb">Siguiente compra</span> 
         <span class="col-span-2 p-1 md:col-span-4 border-t-4 border-tom-thumb ">
-            <img class="w-32 rounded-sm p-2" src={`/${data?.defaulter}.png`} alt="avatar of defaulter"/>
+            {#if data?.defaulter}
+                <img class="w-32 rounded-sm p-2" src={`/${data?.defaulter}.png`} alt="avatar of defaulter"/>
+            {:else}
+            <UnkownUserIcon color={'var(--tom-thumb)'} className={'w-32 h-32 p-2'} stroke={"2"}/>
+            {/if}
         </span>
     </header>
     <body class="max-h-1/2">
@@ -66,10 +70,10 @@
             <span class="w-full flex px-8 py-4 font-firasans text-tom-thumb bg-pewter-dark">Balance {mes}</span>
             <div class="w-full flex justify-between px-8 bg-pewter-dark">
                 <div class="flex flex-col gap-4 items-center p-2 font-maitree text-gray-nurse">
-                    <img class="w-24 rounded-sm" src={`/ofontito.png`} alt="avatar of user"/> {data?.personBalance.get('ofontito')}
+                    <img class="w-24 rounded-sm" src={`/ofontito.png`} alt="avatar of user"/> {data?.personBalance.get('ofontito') ?? "0.00"}
                 </div>
                 <div class="flex flex-col gap-4 items-center p-2 font-maitree text-gray-nurse">
-                    <img class="w-24 rounded-sm" src={`/claudita.png`} alt="avatar of user"/> {data?.personBalance.get('claudita')}
+                    <img class="w-24 rounded-sm" src={`/claudita.png`} alt="avatar of user"/> {data?.personBalance.get('claudita') ?? "0.00"}
                 </div>
             </div>
             <div class="w-full max-h-1/4 flex gap-2 font-firasans text-4xl md:text-4xl bg-pewter-dark px-8 py-8">

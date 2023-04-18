@@ -21,7 +21,7 @@
                     <tr class="border border-tom-thumb">
                         <td class="text-center p-2 flex justify-center"><img class="w-8 rounded-sm" src={`/${row.person}.png`} alt="avatar of defaulter"/></td>
                         <td class="text-center p-2">{row.date}</td>
-                        <td class="text-center p-2">{row.value}</td>
+                        <td class="text-center p-2">{row.value.toFixed(2)}</td>
                     </tr>
                 {/each}
             </tbody>
@@ -31,10 +31,10 @@
         <span class="bg-pewter-dark font-maitree text-3xl text-tom-thumb px-8 py-2">Totales</span>
         <div class="w-full flex justify-between px-8 bg-pewter-dark">
             <div class="flex flex-col gap-4 items-center p-2 font-maitree text-gray-nurse text-2xl">
-                <img class="w-24 rounded-sm" src={`/ofontito.png`} alt="avatar of user"/> {data?.totals?.get('ofontito')}
+                <img class="w-24 rounded-sm" src={`/ofontito.png`} alt="avatar of user"/> {data?.totals?.get('ofontito')?.toFixed(2) ?? "0.00"}
             </div>
             <div class="flex flex-col gap-4 items-center p-2 font-maitree text-gray-nurse text-2xl">
-                <img class="w-24 rounded-sm" src={`/claudita.png`} alt="avatar of user"/> {data?.totals?.get('claudita')}
+                <img class="w-24 rounded-sm" src={`/claudita.png`} alt="avatar of user"/> {data?.totals?.get('claudita')?.toFixed(2) ?? "0.00"}
             </div>
         </div>
     </footer>
