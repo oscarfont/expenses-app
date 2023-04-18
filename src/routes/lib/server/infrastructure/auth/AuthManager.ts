@@ -1,6 +1,6 @@
 import type { IAuthManager } from './authmanager.interface';
 import { google } from 'googleapis';
-import keys from './my-spreadsheets-api-605dd8409717.json';
+import { keys } from './credentials';
 import { SECRET } from '$env/static/private';
 
 class AuthManager implements IAuthManager {
