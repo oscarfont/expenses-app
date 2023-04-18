@@ -23,8 +23,6 @@
         const result: ActionResult = deserialize(await response.text());
 
         if(result.type === "success") window.location.reload();
-
-        console.log(result);
     }
 </script>
 
