@@ -3,6 +3,7 @@ import type { ISpreadsheetManager } from './spreadsheetmanager.interface';
 import { google, sheets_v4 } from 'googleapis';
 import type { ISpreadsheetDto } from '../../dtos/ISpreadhseetDto';
 import Spreadsheet, { Cell } from '../../domain/Spreadhseet';
+import { env } from '$env/dynamic/private';
 
 class SpreadsheetManager implements ISpreadsheetManager {
 	public sheet?: ISpreadsheet;
@@ -22,7 +23,7 @@ class SpreadsheetManager implements ISpreadsheetManager {
 
 	async addValue(month: string, value: Array<any>): Promise<number> {
 		try {
-			const spreadsheetId = '1iiDe59t39Pk2QMOv0DBjWDuBOjP8rvSpFp0fpHE4T28';
+			const spreadsheetId = env.SPREADHSEET_ID;
 			const result = await this.spreadsheetsClient.spreadsheets.values.append({
 				spreadsheetId,
 				range: month,
@@ -39,7 +40,7 @@ class SpreadsheetManager implements ISpreadsheetManager {
 
 	async updateValue(month: string, row: Map<number, Cell<any>[]>, value: string): Promise<number> {
 		try {
-			const spreadsheetId = '1iiDe59t39Pk2QMOv0DBjWDuBOjP8rvSpFp0fpHE4T28';
+			const spreadsheetId = env.SPREADHSEET_ID;
 			let rowNum = [...row.keys()].shift();
 			if (!rowNum) throw new Error('Row for this person today does not exist at the sheet');
 			rowNum++;
@@ -59,7 +60,7 @@ class SpreadsheetManager implements ISpreadsheetManager {
 
 	async createTab(name: string): Promise<void> {
 		try {
-			const spreadsheetId = '1iiDe59t39Pk2QMOv0DBjWDuBOjP8rvSpFp0fpHE4T28';
+			const spreadsheetId = env.SPREADHSEET_ID;
 
 			await this.spreadsheetsClient.spreadsheets.batchUpdate({
 				spreadsheetId,

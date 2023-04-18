@@ -14,7 +14,7 @@ export const getHistory = async (
 ): Promise<ISpreadsheet> => {
 	try {
 		const currentMonthName = dateUtils.getCurrentMonthName();
-		const id = '1iiDe59t39Pk2QMOv0DBjWDuBOjP8rvSpFp0fpHE4T28';
+		const id = env.SPREADHSEET_ID;
 		const range = `${currentMonthName}!A1:D`;
 		return await spreadsheetManager.readSheet(id, range);
 	} catch (ex: any) {
