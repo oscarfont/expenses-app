@@ -1,6 +1,7 @@
 export interface IDateUtils {
 	getTodaysDateString(): string;
 	getCurrentMonthName(): string;
+	fromEngToSpaDate(date: string): string;
 }
 
 interface IMonthToName {
@@ -33,6 +34,11 @@ class DateUtils implements IDateUtils {
 		const todaysDateString = this.getTodaysDateString();
 		const monthStrNumber = todaysDateString.split('/')[1]!!;
 		return this.monthToNameOfMonth[monthStrNumber];
+	}
+
+	fromEngToSpaDate(date: string): string {
+		const dateParts = date.split('-');
+		return `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
 	}
 }
 

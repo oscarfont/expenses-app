@@ -1,12 +1,33 @@
 <script lang="ts">
+	import type { ActionResult } from "@sveltejs/kit";
 	import SendIcon from "../components/icons/SendIcon.svelte";
 	import UnkownUserIcon from "../components/icons/UnkownUserIcon.svelte";
+	import { deserialize } from "$app/forms";
+	import dateUtils from "./lib/server/infrastructure/dateutils";
 
     export let data;
     const mes = 'Abril';
     const total = 17.5;
     const thereIsLocalStorage: boolean = typeof window !== 'undefined' && localStorage?.storable;
     const { user } = thereIsLocalStorage ? JSON.parse(window.localStorage.storable) : "";
+
+    const handleSubmit = async (event: SubmitEvent) => {
+        event.preventDefault();
+        const formData = new FormData(event.target as HTMLFormElement);
+
+        formData.append('user', user);
+
+        const response = await fetch('?/addExpense', {
+            method: 'POST',
+            body: formData,
+        });
+        
+        const result: ActionResult = deserialize(await response.text());
+
+        if(result.type === "success") window.location.reload();
+
+        console.log(result);
+    }
 </script>
 
 <section class="w-full h-full max-width flex flex-col border-x-solid border-x-2 border-tom-thumb">
@@ -17,7 +38,7 @@
         </span>
     </header>
     <body class="max-h-1/2">
-        <form class="flex flex-col py-4 gap-8" method="POST" action="/addExpense">
+        <form class="flex flex-col py-4 gap-8" method="POST" action="?/addExpense" on:submit={handleSubmit}>
             <div class="w-full flex flex-col gap-2 px-8 font-maitree text-3xl text-tom-thumb">
                 <span class="py-4 flex items-center gap-4">
                     ¡Hola,
@@ -37,13 +58,13 @@
                     <label class="w-full flex flex-col">
                         <input name="gasto" id="gasto" type="number" class="bg-pewter-dark p-4 font-sintony text-tom-thumb rounded-sm" step=".01">
                       </label>
-                      <button type="submit" class="bg-tom-thumb rounded-sm">
+                      <button type="submit" class="bg-tom-thumb rounded-sm" disabled={user === ""}>
                           <SendIcon color={'var(--gray-nurse)'} className={'w-12 h-12 p-2'}/>
                       </button>
                 </div>
             </div> 
         </form>
-        <section class="w-full flex flex-col text-4xl py-8">
+        <section class="w-full flex flex-col text-4xl py-4">
             <span class="w-full flex px-8 py-4 font-firasans text-tom-thumb bg-pewter-dark">Balance {mes}</span>
             <div class="w-full flex justify-between px-8 bg-pewter-dark">
                 <div class="flex flex-col gap-4 items-center p-2 font-maitree text-gray-nurse">

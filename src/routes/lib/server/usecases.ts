@@ -62,7 +62,8 @@ const createMonthSheet = async (
 export const addExpense = async (
 	person: string,
 	expense: number,
-	spreadsheetManager: ISpreadsheetManager
+	spreadsheetManager: ISpreadsheetManager,
+	fecha?: string
 ): Promise<number> => {
 	try {
 		// get historical data and todays date
@@ -71,6 +72,15 @@ export const addExpense = async (
 		const treatedExpense = expense.toString().includes('.')
 			? expense.toString().replace('.', ',')
 			: expense.toString();
+
+		console.log(dateUtils.fromEngToSpaDate(fecha!!));
+
+		// get month of date
+		const dateMonth = fecha ? fecha.split('-')[1] : todayDate.split('/')[1];
+
+		// check if it is current month
+		if (dateMonth !== todayDate.split('/')[1])
+			throw error(500, { message: 'Por favor introduce un gasto de este mes! :(' });
 
 		// check if there is historical data for current month
 		let sheet: ISpreadsheet;
@@ -88,20 +98,23 @@ export const addExpense = async (
 			}
 		}
 
+		// get the date to write to the sheet
+		const dateToAdd = fecha ? dateUtils.fromEngToSpaDate(fecha) : todayDate;
+
 		// check if for today there is a row for that person
-		const personRow = sheet.findRow(person, todayDate);
+		const personRow = sheet.findRow(person, dateToAdd);
 
 		// if there is get the amount already there
 		const formulaToAdd = personRow
 			? `=${[...personRow.entries()].shift()?.[1][3].value}+(${treatedExpense})`
-			: `=(${expense})`;
+			: `=(${treatedExpense})`;
 
 		// use sheet manager to update or add the new expense
 		const rowsAffected = personRow
 			? await spreadsheetManager.updateValue(currentMonthName, personRow, formulaToAdd)
 			: await spreadsheetManager.addValue(currentMonthName, [
 					person,
-					todayDate,
+					dateToAdd,
 					'comida',
 					formulaToAdd
 			  ]);

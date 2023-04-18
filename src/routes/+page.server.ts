@@ -12,10 +12,11 @@ export const actions = {
 			const spreadSheetManager = new SpreadsheetManager(auth);
 
 			const data = await request.formData();
-			const person = data.get('persona')?.toString()!!;
+			const person = data.get('user')?.toString()!!;
+			const fecha = data.get('fecha')?.toString()!!;
 			const expense = parseFloat(data.get('gasto')?.toString()!!);
 
-			await addExpense(person, expense, spreadSheetManager);
+			await addExpense(person, expense, spreadSheetManager, fecha);
 		} catch (ex: any) {
 			throw ex;
 		}
