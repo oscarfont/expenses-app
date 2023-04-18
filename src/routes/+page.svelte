@@ -3,13 +3,12 @@
 	import SendIcon from "../components/icons/SendIcon.svelte";
 	import UnkownUserIcon from "../components/icons/UnkownUserIcon.svelte";
 	import { deserialize } from "$app/forms";
-	import dateUtils from "./lib/server/infrastructure/dateutils";
 
     export let data;
     const mes = 'Abril';
     const total = 17.5;
     const thereIsLocalStorage: boolean = typeof window !== 'undefined' && localStorage?.storable;
-    const { user } = thereIsLocalStorage ? JSON.parse(window.localStorage.storable) : "";
+    const { user } = thereIsLocalStorage ? JSON.parse(window.localStorage.storable) : { user: undefined };
 
     const handleSubmit = async (event: SubmitEvent) => {
         event.preventDefault();
@@ -58,7 +57,7 @@
                     <label class="w-full flex flex-col">
                         <input name="gasto" id="gasto" type="number" class="bg-pewter-dark p-4 font-sintony text-tom-thumb rounded-sm" step=".01">
                       </label>
-                      <button type="submit" class="bg-tom-thumb rounded-sm" disabled={user === ""}>
+                      <button type="submit" class="bg-tom-thumb rounded-sm" disabled={user === undefined}>
                           <SendIcon color={'var(--gray-nurse)'} className={'w-12 h-12 p-2'}/>
                       </button>
                 </div>

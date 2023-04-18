@@ -11,7 +11,9 @@
 
 	let showModal = false;
     let path: string;
-    let persona = "ofontito";
+    const thereIsLocalStorage: boolean = typeof window !== 'undefined' && localStorage?.storable;
+    let { user } : { user:string } = thereIsLocalStorage ? JSON.parse(window.localStorage.storable) : { user: "ofontito" };
+    const loggedUser = thereIsLocalStorage ? JSON.parse(window.localStorage.storable)?.user : undefined;
     let error = "";
     const homePath = "/";
     const historyPath = "/history";
@@ -24,20 +26,20 @@
         event.preventDefault();
         const formData = new FormData(event.target as HTMLFormElement);
 
-        formData.append('user', persona);
+        formData.append('user', user);
 
         const response = await fetch('?/auth', {
             method: 'POST',
             body: formData,
         });
 
-        if(!response.ok) error = `Contraseña incorrecta. ¿Seguro que eres ${persona}...? 🤔`;
+        if(!response.ok) error = `Contraseña incorrecta. ¿Seguro que eres ${user}...? 🤔`;
         
         const result: ActionResult = deserialize(await response.text());
 
         if (result.type === 'success') {
-            const store = storable({user: persona, token: result.data?.token});
-            store.set({user: persona, token: result.data?.token});
+            const store = storable({user: user, token: result.data?.token});
+            store.set({user: user, token: result.data?.token});
         }
 
         window.location.reload();
@@ -58,28 +60,35 @@
         </button>
     </span>
     <Modal bind:showModal>
-        <form class="flex flex-col p-2" method="POST" action="?/auth" on:submit={handleSubmit}>
-            <span class="font-firasans text-tom-thumb text-2xl p-2">¡Buenas! ¿quién eres tú 🧐?</span>
-            <label class="flex gap-4">
-                <span class="flex gap-2 p-2">
-                    <input type="radio" bind:group={persona} id="persona-ofontito" value="ofontito"/> 
-                    <img class="w-24" src={`/ofontito.png`} alt="avatar of user"/>       
-                </span>
-                <span class="flex gap-2 p-2">
-                    <input type="radio" bind:group={persona} id="persona-claudita" value="claudita"/> 
-                    <img class="w-24" src={`/claudita.png`} alt="avatar of user"/>       
-                </span>
-            </label>
-            <label class="flex flex-col p-2">
-               <span class="font-firasans text-tom-thumb text-2xl p-2">¿Te sabes la contraseña 🤔?</span>
-               <div class="flex gap-2">
-                    <input name="secret" id="secret" type="password" class="bg-pewter-dark p-2 text-tom-thumb rounded-sm">
-                    <button type="submit" class="bg-tom-thumb rounded-sm">
-                        <SendIcon color={'var(--gray-nurse)'} className={'w-12 h-12 p-2'}/>
-                    </button>
-               </div>
-               {#if error && error !== ""}<span class="font-sintony text-xs text-error-red">{error}</span>{/if}
-            </label>
-        </form>
+        {#if loggedUser !== undefined}
+            <div class="w-full h-full flex flex-col justify-center items-center p-2">
+                <span class="font-firasans text-tom-thumb text-2xl p-2">¡Buenas {loggedUser}! 😊</span>
+                <img class="w-24 py-2" src={`/${loggedUser}.png`} alt="avatar of user"/>  
+            </div>
+        {:else}
+            <form class="flex flex-col p-2" method="POST" action="?/auth" on:submit={handleSubmit}>
+                <span class="font-firasans text-tom-thumb text-2xl p-2">¡Buenas! ¿quién eres tú 🧐?</span>
+                <label class="flex gap-4">
+                    <span class="flex gap-2 p-2">
+                        <input type="radio" bind:group={user} id="persona-ofontito" value="ofontito"/> 
+                        <img class="w-24" src={`/ofontito.png`} alt="avatar of user"/>       
+                    </span>
+                    <span class="flex gap-2 p-2">
+                        <input type="radio" bind:group={user} id="persona-claudita" value="claudita"/> 
+                        <img class="w-24" src={`/claudita.png`} alt="avatar of user"/>       
+                    </span>
+                </label>
+                <label class="flex flex-col p-2">
+                <span class="font-firasans text-tom-thumb text-2xl p-2">¿Te sabes la contraseña 🤔?</span>
+                <div class="flex gap-2">
+                        <input name="secret" id="secret" type="password" class="bg-pewter-dark p-2 text-tom-thumb rounded-sm">
+                        <button type="submit" class="bg-tom-thumb rounded-sm">
+                            <SendIcon color={'var(--gray-nurse)'} className={'w-12 h-12 p-2'}/>
+                        </button>
+                </div>
+                {#if error && error !== ""}<span class="font-sintony text-xs text-error-red">{error}</span>{/if}
+                </label>
+            </form>
+        {/if}
     </Modal>
 </footer>
