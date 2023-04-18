@@ -4,10 +4,12 @@ import type { IHistoryDto } from './IHistoryDto';
 class BalanceDto implements IBalanceDto {
 	defaulter: string;
 	personBalance: Map<string, number>;
+	monthTotal: number;
 
 	constructor() {
 		this.defaulter = '';
 		this.personBalance = new Map<string, number>();
+		this.monthTotal = 0;
 	}
 
 	computeBalanceOf(person: string, history: IHistoryDto): void {

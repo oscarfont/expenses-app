@@ -134,6 +134,7 @@ export const computeBalance = async (
 		const balance = new BalanceDto();
 		[...history.totals.keys()].forEach((person) => balance.computeBalanceOf(person, history));
 		balance.computeDefaulter();
+		balance.monthTotal = [...history.totals.values()].reduce((prev, curr) => (prev += curr), 0);
 		return balance;
 	} catch (e: any) {
 		throw e;

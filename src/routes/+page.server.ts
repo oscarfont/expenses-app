@@ -41,7 +41,11 @@ export async function load() {
 		const auth = await authManager.getToken();
 		const spreadSheetManager = new SpreadsheetManager(auth);
 		const balance = await computeBalance(spreadSheetManager);
-		return { defaulter: balance.defaulter, personBalance: balance.personBalance };
+		return {
+			defaulter: balance.defaulter,
+			personBalance: balance.personBalance,
+			monthTotal: balance.monthTotal
+		};
 	} catch (ex: any) {
 		throw ex;
 	}

@@ -6,7 +6,6 @@
 
     export let data;
     const mes = 'Abril';
-    const total = 17.5;
     const thereIsLocalStorage: boolean = typeof window !== 'undefined' && localStorage?.storable;
     const { user } = thereIsLocalStorage ? JSON.parse(window.localStorage.storable) : { user: undefined };
 
@@ -75,7 +74,7 @@
             </div>
             <div class="w-full max-h-1/4 flex gap-2 font-firasans text-4xl md:text-4xl bg-pewter-dark px-8 py-8">
                 <span class="flex items-center justify-center text-tom-thumb">Gasto total:</span> 
-                <span class="flex items-center justify-center text-gray-nurse">{total.toFixed(2) ?? '0.00'} €</span>
+                <span class="flex items-center justify-center text-gray-nurse">{data?.monthTotal.toFixed(2) ?? '0.00'} €</span>
             </div>
         </section>
     </body>
