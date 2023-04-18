@@ -7,7 +7,7 @@
     <header class="w-full flex py-2 font-firasans text-4xl bg-pewter-dark">
         <span class="w-full py-2 px-8 text-gray-nurse border-t-4 border-tom-thumb">Historico {mes}</span>
     </header>
-    <body class="w-full h-full p-8 overflow-y-scroll">
+    <body class="w-full h-full p-8 overflow-y-auto">
         <table class="w-full border-collapse border border-tom-thumb overflow-y-scroll">
             <thead class="border border-tom-thumb font-maitree text-tom-thumb text-xl">
               <tr>
