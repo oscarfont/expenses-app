@@ -8,6 +8,8 @@
     import { storable } from '../routes/store/store'
 	import type { ActionResult } from "@sveltejs/kit";
 	import { deserialize } from "$app/forms";
+	import MenuIcon from "./icons/MenuIcon.svelte";
+	import CrossIcon from "./icons/CrossIcon.svelte";
 
 	let showModal = false;
     let path: string;
@@ -17,8 +19,11 @@
     let error = "";
     const homePath = "/";
     const historyPath = "/history";
+    const profilePath = "/profile";
     const activeColor = "var(--gray-nurse)";
     const activeStroke = "2";
+
+    let menuToggle = true;
 
     $: path = $page.url.pathname;
 
@@ -44,9 +49,27 @@
 
         window.location.reload();
     }
+
+    const toggleMenu = () => {
+        if(menuToggle){
+            menuToggle = false
+        }else{
+            menuToggle = true
+        }
+    }
 </script>
 
-<footer class="w-full max-width bg-pewter-dark flex flex-col">
+<nav class="nav w-full max-width flex flex-col gap-2 p-4">
+    <button on:click={toggleMenu}>
+        <CrossIcon className={menuToggle ? '' : 'hidden'}/>
+        <MenuIcon className={menuToggle ? 'hidden' : ''}/>
+    </button>
+    <a class={`nav-item ${menuToggle ? '' : 'hidden'}`} href={homePath}>Inicio</a>
+    <a class={`nav-item ${menuToggle ? '' : 'hidden'}`} href={historyPath}>Histórico</a>
+    <a class={`nav-item ${menuToggle ? '' : 'hidden'}`} href={profilePath}>Perfil</a>
+</nav>
+
+<!--<footer class="w-full max-width bg-pewter-dark flex flex-col">
     <span class="w-full h-3 bg-transparent border-b-4 border-solid border-tom-thumb"></span>
     <span class="w-full bg-pewter-dark grid grid-rows-1 grid-cols-3">
         <a href={homePath} class="flex justify-end">
@@ -91,4 +114,4 @@
             </form>
         {/if}
     </Modal>
-</footer>
+</footer>-->
