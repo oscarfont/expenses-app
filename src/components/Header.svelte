@@ -59,14 +59,14 @@
     }
 </script>
 
-<nav class="nav w-full max-width flex flex-col gap-2 p-4">
+<nav class={`nav overflow-hidden w-full max-width flex flex-col gap-2 p-4 ${menuToggle ? 'is-open' : 'is-closed'}`}>
     <button on:click={toggleMenu}>
         <CrossIcon className={menuToggle ? '' : 'hidden'}/>
         <MenuIcon className={menuToggle ? 'hidden' : ''}/>
     </button>
-    <a class={`nav-item ${menuToggle ? '' : 'hidden'}`} href={homePath}>Inicio</a>
-    <a class={`nav-item ${menuToggle ? '' : 'hidden'}`} href={historyPath}>Histórico</a>
-    <a class={`nav-item ${menuToggle ? '' : 'hidden'}`} href={profilePath}>Perfil</a>
+    <a class={`nav-item ${menuToggle ? 'is-visible' : 'is-hidden'}`} href={homePath}>Inicio</a>
+    <a class={`nav-item ${menuToggle ? 'is-visible' : 'is-hidden'}`} href={historyPath}>Histórico</a>
+    <a class={`nav-item ${menuToggle ? 'is-visible' : 'is-hidden'}`} href={profilePath}>Perfil</a>
 </nav>
 
 <!--<footer class="w-full max-width bg-pewter-dark flex flex-col">
@@ -115,3 +115,26 @@
         {/if}
     </Modal>
 </footer>-->
+
+<style>
+    .is-open{
+        height: 12rem;
+        transition: all 0.5s ease-in-out;
+    }
+
+    .is-hidden{
+        opacity: 0;
+        transform: scaleY(0);
+    }
+
+    .is-visible{
+        opacity: 1;
+        transform: scaleY(100%) translateX(25%);
+        transition: all 0.5s linear;
+    }
+
+    .is-closed{
+        height: 4rem;
+        transition: all 0.5s ease-out;
+    }
+</style>
