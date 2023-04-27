@@ -59,14 +59,23 @@
     }
 </script>
 
-<nav class={`nav overflow-hidden w-full max-width flex flex-col gap-2 p-4 ${menuToggle ? 'is-open' : 'is-closed'}`}>
+<nav class={`nav overflow-hidden w-full max-width flex flex-col gap-2 p-2 ${menuToggle ? 'is-open' : 'is-closed'}`}>
     <button on:click={toggleMenu}>
-        <CrossIcon className={menuToggle ? '' : 'hidden'}/>
-        <MenuIcon className={menuToggle ? 'hidden' : ''}/>
+        <CrossIcon className={`w-8 h-8 ${menuToggle ? '' : 'hidden'}`}/>
+        <MenuIcon className={`w-8 h-8 ${menuToggle ? 'hidden' : ''}`}/>
     </button>
-    <a class={`nav-item ${menuToggle ? 'is-visible' : 'is-hidden'}`} href={homePath}>Inicio</a>
-    <a class={`nav-item ${menuToggle ? 'is-visible' : 'is-hidden'}`} href={historyPath}>Histórico</a>
-    <a class={`nav-item ${menuToggle ? 'is-visible' : 'is-hidden'}`} href={profilePath}>Perfil</a>
+    <a  class={`nav-item font-maitree text-lg ${menuToggle ? 'is-visible' : 'is-hidden'} ${path === homePath ? 'text-gray-nurse font-bold' : 'text-tom-thumb'}`} 
+        href={homePath}>
+        Inicio
+    </a>
+    <a class={`nav-item font-maitree text-lg ${menuToggle ? 'is-visible' : 'is-hidden'} ${path === historyPath ? 'text-gray-nurse font-bold' : 'text-tom-thumb'}`} 
+        href={historyPath}>
+        Histórico
+    </a>
+    <a class={`nav-item font-maitree text-lg ${menuToggle ? 'is-visible' : 'is-hidden'} ${path === profilePath ? 'text-gray-nurse font-bold' : 'text-tom-thumb'}`} 
+        href={profilePath}>
+        Perfil
+    </a>
 </nav>
 
 <!--<footer class="w-full max-width bg-pewter-dark flex flex-col">
