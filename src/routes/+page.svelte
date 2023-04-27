@@ -3,6 +3,7 @@
 	import SendIcon from "../components/icons/SendIcon.svelte";
 	import UnkownUserIcon from "../components/icons/UnkownUserIcon.svelte";
 	import { deserialize } from "$app/forms";
+	import Badge from "../components/Badge.svelte";
 
     export let data;
     const mes = 'Abril';
@@ -68,10 +69,12 @@
             <span class="w-full flex px-8 py-4 font-firasans text-tom-thumb bg-pewter-dark">Balance {mes}</span>
             <div class="w-full flex justify-between px-8 bg-pewter-dark">
                 <div class="flex flex-col gap-4 items-center p-2 font-maitree text-gray-nurse">
-                    <img class="w-24 rounded-sm" src={`/ofontito.png`} alt="avatar of user"/> {data?.personBalance.get('ofontito') ?? "0.00"}
+                    <img class="w-24 rounded-sm" src={`/ofontito.png`} alt="avatar of user"/> 
+                    <Badge value={data?.personBalance.get('ofontito') ?? 0.00}/>
                 </div>
                 <div class="flex flex-col gap-4 items-center p-2 font-maitree text-gray-nurse">
-                    <img class="w-24 rounded-sm" src={`/claudita.png`} alt="avatar of user"/> {data?.personBalance.get('claudita') ?? "0.00"}
+                    <img class="w-24 rounded-sm" src={`/claudita.png`} alt="avatar of user"/> 
+                    <Badge value={data?.personBalance.get('claudita') ?? 0.00}/>
                 </div>
             </div>
             <div class="w-full max-h-1/4 flex gap-2 font-firasans text-4xl md:text-4xl bg-pewter-dark px-8 py-8">
