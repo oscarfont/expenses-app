@@ -20,8 +20,6 @@
     const homePath = "/";
     const historyPath = "/history";
     const profilePath = "/profile";
-    const activeColor = "var(--gray-nurse)";
-    const activeStroke = "2";
 
     let menuToggle = true;
 
@@ -134,6 +132,7 @@
     .is-hidden{
         opacity: 0;
         transform: scaleY(0);
+        transition: all 0.5s linear;
     }
 
     .is-visible{
