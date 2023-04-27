@@ -5,6 +5,7 @@
 	import { deserialize } from "$app/forms";
 	import Badge from "../components/Badge.svelte";
 	import Button from "../components/Button.svelte";
+	import Indicator from "../components/Indicator.svelte";
 
     export let data;
     const mes = 'Abril';
@@ -80,7 +81,11 @@
             </div>
             <div class="w-full max-h-1/4 flex gap-2 font-firasans text-4xl md:text-4xl bg-pewter-dark px-8 py-8">
                 <span class="flex items-center justify-center text-tom-thumb">Gasto total:</span> 
-                <span class="flex items-center justify-center text-gray-nurse">{data?.monthTotal.toFixed(2) ?? '0.00'} €</span>
+                <span class="flex items-center justify-center">
+                    <Indicator>
+                        {data?.monthTotal.toFixed(2) ?? '0.00'} €
+                    </Indicator>
+                </span>
             </div>
         </section>
     </body>
