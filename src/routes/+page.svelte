@@ -4,6 +4,7 @@
 	import UnkownUserIcon from "../components/icons/UnkownUserIcon.svelte";
 	import { deserialize } from "$app/forms";
 	import Badge from "../components/Badge.svelte";
+	import Button from "../components/Button.svelte";
 
     export let data;
     const mes = 'Abril';
