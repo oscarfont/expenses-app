@@ -51,20 +51,20 @@
     }
 </script>
 
-<nav class={`nav overflow-hidden w-full max-width flex flex-col gap-2 p-2 ${menuToggle ? 'is-open' : 'is-closed'}`}>
+<nav class={`nav bg-main-green overflow-hidden w-full max-width flex flex-col gap-2 p-2 ${menuToggle ? 'is-open' : 'is-closed'}`}>
     <button on:click={toggleMenu}>
-        <CrossIcon className={`w-8 h-8 ${menuToggle ? '' : 'hidden'}`}/>
-        <MenuIcon className={`w-8 h-8 ${menuToggle ? 'hidden' : ''}`}/>
+        <CrossIcon className={`w-8 h-8 ${menuToggle ? '' : 'hidden'}`} color={'var(--dark-blue)'}/>
+        <MenuIcon className={`w-8 h-8 ${menuToggle ? 'hidden' : ''}`} color={'var(--dark-blue)'}/>
     </button>
-    <a  class={`nav-item font-maitree text-lg ${menuToggle ? 'is-visible' : 'is-hidden'} ${path === homePath ? 'text-gray-nurse font-bold' : 'text-tom-thumb'}`} 
+    <a  class={`nav-item font-maitree text-lg text-dark-blue ${menuToggle ? 'is-visible' : 'is-hidden'} ${path === homePath ? 'font-bold' : ''}`} 
         href={homePath}>
         Inicio
     </a>
-    <a class={`nav-item font-maitree text-lg ${menuToggle ? 'is-visible' : 'is-hidden'} ${path === historyPath ? 'text-gray-nurse font-bold' : 'text-tom-thumb'}`} 
+    <a class={`nav-item font-maitree text-lg text-dark-blue ${menuToggle ? 'is-visible' : 'is-hidden'} ${path === historyPath ? 'font-bold' : ''}`} 
         href={historyPath}>
         Histórico
     </a>
-    <a class={`nav-item font-maitree text-lg ${menuToggle ? 'is-visible' : 'is-hidden'} ${path === profilePath ? 'text-gray-nurse font-bold' : 'text-tom-thumb'}`} 
+    <a class={`nav-item font-maitree text-lg text-dark-blue ${menuToggle ? 'is-visible' : 'is-hidden'} ${path === profilePath ? 'font-bold' : ''}`} 
         href={profilePath}>
         Perfil
     </a>
