@@ -6,6 +6,7 @@
 	import Badge from "../components/Badge.svelte";
 	import Button from "../components/Button.svelte";
 	import Indicator from "../components/Indicator.svelte";
+	import Card from "../components/Card.svelte";
 
     export let data;
     const mes = 'Abril';
@@ -29,7 +30,7 @@
     }
 </script>
 
-<section class="w-full h-full max-width flex flex-col overflow-y-auto">
+<!--<section class="w-full h-full max-width flex flex-col overflow-y-auto">
     <header class="w-full max-h-1/4 pt-2 grid grid-cols-12 font-firasans text-4xl text-gray-nurse bg-pewter-dark">
         <span class="flex items-center justify-center col-span-10 md:col-span-8 border-t-4 border-tom-thumb">Siguiente compra</span> 
         <span class="col-span-2 p-1 md:col-span-4 border-t-4 border-tom-thumb ">
@@ -89,4 +90,30 @@
             </div>
         </section>
     </body>
+</section>-->
+
+<section class="w-full h-full max-width p-4 flex flex-col overflow-y-auto bg-light-green border border-solid border-dark-blue">
+    <Card>
+        <head class="w-full px-2 py-8 flex gap-4 justify-between border-b-2 border-solid border-dark-blue">
+            <span class="flex gap-4">
+                <img class="w-16 rounded-sm" src={`/ofontito.png`} alt="avatar of user"/>
+                <span class="flex flex-col justify-center">
+                    <Badge value={data?.personBalance.get('ofontito') ?? 0.00}/>
+                </span>
+            </span>
+            <span class="flex gap-4">
+                <img class="w-16 rounded-sm" src={`/claudita.png`} alt="avatar of user"/>
+                <span class="flex flex-col justify-center">
+                    <Badge value={data?.personBalance.get('claudita') ?? 0.00}/>
+                </span>
+            </span>
+        </head>
+        <body class="flex flex-col px-2 py-4">
+            <span>Menu</span>
+            <Indicator>
+                {data?.monthTotal.toFixed(2) ?? '0.00'} €
+            </Indicator>
+            <span>01/04 - 31/04</span>
+        </body>
+    </Card>
 </section>

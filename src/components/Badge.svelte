@@ -2,6 +2,6 @@
     export let value: number = 0.00;
 </script>
 
-<span class="rounded-full bg-gray-nurse border border-solid border-tom-thumb text-tom-thumb font-sintony text-lg p-2">
+<span class="rounded-full bg-light-green border border-solid border-dark-blue text-dark-blue font-sintony text-lg p-2">
     {(value > 0 ? '+' : '') + value.toFixed(2) + ' €'}
 </span>

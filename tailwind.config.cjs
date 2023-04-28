@@ -20,6 +20,7 @@ module.exports = {
 			'light-green': '#C6FFD8',
 			'main-green': '#B4EBCA',
 			'dark-blue': '#1B3B54',
+			'electric-blue': '#2821A6',
 			'light-blue': '#3CB1FF'
 		}
 	},
