@@ -8,6 +8,7 @@
 	import Indicator from "../components/Indicator.svelte";
 	import Card from "../components/Card.svelte";
 	import ScaleIcon from "../components/icons/ScaleIcon.svelte";
+	import CartIcon from "../components/icons/CartIcon.svelte";
 
     export let data;
     const mes = 'Abril';
@@ -93,7 +94,7 @@
     </body>
 </section>-->
 
-<section class="w-full h-full max-width p-4 flex flex-col overflow-y-auto bg-light-green border border-solid border-dark-blue">
+<section class="w-full h-full max-width p-4 flex flex-col gap-6 overflow-y-auto bg-light-green border border-solid border-dark-blue">
     <Card>
         <head class="w-full px-2 py-8 flex gap-4 justify-between border-b-2 border-solid border-dark-blue">
             <span class="flex gap-4">
@@ -122,4 +123,37 @@
             </span>
         </section>
     </Card>
+    <Card>
+        <div class="w-full flex justify-around md:gap-8">
+            <span class="flex items-center justify-center">
+                {#if data?.defaulter}
+                    <img class="w-16 h-16 md:w-20 md:h-20 rounded-sm" src={`/${data?.defaulter}.png`} alt="avatar of defaulter"/>
+                {:else}
+                    <UnkownUserIcon color={'var(--dark-blue)'} className={'w-16 h-16 md:w-20 md:h-20 p-2'} stroke={"2"}/>
+                {/if}
+            </span>
+            <div class="flex flex-col">
+                <Indicator>
+                    {data?.personBalance.get(data?.defaulter) ?? '0.00'} €
+                </Indicator>
+                <span class="font-maitree text-dark-blue text-md">Gastados este mes</span>
+                <span class="font-sintony text-dark-blue text-xs font-bold">Paga la siguiente compra</span>
+            </div>
+            <span class="flex items-center justify-center">
+                <CartIcon color={"var(--dark-blue)"} className={"w-16 h-16 md:w-18 md:h-18"}/>
+            </span>
+        </div>
+    </Card>
+    <section class="w-full flex gap-2">
+        <span class="bg-main-green rounded-full">
+            {#if user}
+                <img class="w-16 h-16 md:w-20 md:h-20 p-2 rounded-sm" src={`/${user}.png`} alt="avatar of defaulter"/>
+            {:else}
+                <UnkownUserIcon color={'var(--dark-blue)'} className={'w-16 h-16 md:w-18 md:h-18 p-2'} stroke={"2"}/>
+            {/if}
+        </span>
+        <span class="w-full p-2">
+            <Button disabled={user === undefined} className={"w-full"}>Añadir gasto</Button>
+        </span>
+    </section>
 </section>
