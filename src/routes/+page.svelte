@@ -7,6 +7,7 @@
 	import Button from "../components/Button.svelte";
 	import Indicator from "../components/Indicator.svelte";
 	import Card from "../components/Card.svelte";
+	import ScaleIcon from "../components/icons/ScaleIcon.svelte";
 
     export let data;
     const mes = 'Abril';
@@ -108,12 +109,17 @@
                 </span>
             </span>
         </head>
-        <body class="flex flex-col px-2 py-4">
-            <span>Menu</span>
+        <body class="flex flex-col px-2 py-4 gap-4">
+            <span class="flex gap-4 font-maitree text-3xl text-dark-blue items-center">
+                <ScaleIcon color={"var(--dark-blue)"} className={'w-8 h-8'}/>
+                Abril
+            </span>
             <Indicator>
                 {data?.monthTotal.toFixed(2) ?? '0.00'} €
             </Indicator>
-            <span>01/04 - 31/04</span>
+            <span class="font-sintony text-dark-blue">
+                01/04 - 31/04
+            </span>
         </body>
     </Card>
 </section>
