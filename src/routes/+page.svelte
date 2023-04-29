@@ -94,7 +94,7 @@
     </body>
 </section>-->
 
-<section class="w-full h-full max-width p-2 md:py-4 md:px-8 flex flex-col gap-6 overflow-y-auto bg-light-green border border-solid border-dark-blue">
+<section class="w-full h-full max-width p-2 md:py-4 md:px-8 flex flex-col gap-6 overflow-y-auto bg-light-green">
     <Card className={"p-4"}>
         <head class="w-full px-2 py-8 flex gap-4 justify-between border-b-2 border-solid border-dark-blue">
             <span class="flex gap-4">
