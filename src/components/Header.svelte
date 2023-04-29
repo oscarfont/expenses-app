@@ -15,7 +15,7 @@
     const historyPath = "/history";
     const profilePath = "/profile";
 
-    let menuToggle = true;
+    let menuToggle = false;
 
     $: path = $page.url.pathname;
 
