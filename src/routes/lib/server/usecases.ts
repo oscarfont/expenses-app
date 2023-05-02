@@ -19,7 +19,6 @@ export const getHistory = async (
 		const range = `${currentMonthName}!A1:D`;
 		return await spreadsheetManager.readSheet(id, range);
 	} catch (ex: any) {
-		console.log(ex);
 		throw ex;
 	}
 };
@@ -136,6 +135,7 @@ export const computeBalance = async (
 		[...history.totals.keys()].forEach((person) => balance.computeBalanceOf(person, history));
 		balance.computeDefaulter();
 		balance.monthTotal = [...history.totals.values()].reduce((prev, curr) => (prev += curr), 0);
+		balance.defaulterTotal = history.totals.get(balance.defaulter) ?? 0;
 		return balance;
 	} catch (e: any) {
 		throw e;

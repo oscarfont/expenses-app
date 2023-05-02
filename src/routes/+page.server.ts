@@ -31,7 +31,8 @@ export async function load() {
 		return {
 			defaulter: balance.defaulter,
 			personBalance: balance.personBalance,
-			monthTotal: balance.monthTotal
+			monthTotal: balance.monthTotal,
+			defaulterTotal: balance.defaulterTotal
 		};
 	} catch (ex: any) {
 		throw ex;

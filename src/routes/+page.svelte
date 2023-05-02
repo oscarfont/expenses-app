@@ -72,7 +72,7 @@
             </span>
             <div class="flex flex-col">
                 <Indicator>
-                    {data?.personBalance.get(data?.defaulter) ?? '0.00'} €
+                    {data?.defaulterTotal.toFixed(2) ?? '0.00'} €
                 </Indicator>
                 <span class="font-maitree text-dark-blue text-md">Gastados este mes</span>
                 <span class="font-sintony text-dark-blue text-xs font-bold">Paga la siguiente compra</span>
