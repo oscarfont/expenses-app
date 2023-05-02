@@ -5,6 +5,8 @@ export interface IBalanceDto {
 	personBalance: Map<string, number>;
 	monthTotal: number;
 	defaulterTotal: number;
+	startDate: string;
+	endDate: string;
 
 	computeBalanceOf(person: string, history: IHistoryDto): void;
 	computeDefaulter(): void;

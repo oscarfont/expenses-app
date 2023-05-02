@@ -14,6 +14,10 @@
     const mes = 'Abril';
     const thereIsLocalStorage: boolean = typeof window !== 'undefined' && localStorage?.storable;
     const { user } = thereIsLocalStorage ? JSON.parse(window.localStorage.storable) : { user: undefined };
+    const startParts = data?.startDate.split('/');
+    const start = `${startParts[0]}/${startParts[1]}`;
+    const endParts = data?.endDate.split('/');
+    const end = `${endParts[0]}/${endParts[1]}`;
 
     const handleSubmit = async (event: SubmitEvent) => {
         event.preventDefault();
@@ -57,7 +61,7 @@
                 {data?.monthTotal.toFixed(2) ?? '0.00'} €
             </Indicator>
             <span class="font-sintony text-dark-blue">
-                01/04 - 31/04
+                {start} - {end}
             </span>
         </section>
     </Card>

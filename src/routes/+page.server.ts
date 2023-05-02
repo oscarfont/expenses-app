@@ -32,7 +32,9 @@ export async function load() {
 			defaulter: balance.defaulter,
 			personBalance: balance.personBalance,
 			monthTotal: balance.monthTotal,
-			defaulterTotal: balance.defaulterTotal
+			defaulterTotal: balance.defaulterTotal,
+			startDate: balance.startDate,
+			endDate: balance.endDate
 		};
 	} catch (ex: any) {
 		throw ex;

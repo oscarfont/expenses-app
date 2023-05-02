@@ -73,8 +73,6 @@ export const addExpense = async (
 			? expense.toString().replace('.', ',')
 			: expense.toString();
 
-		console.log(dateUtils.fromEngToSpaDate(fecha!!));
-
 		// get month of date
 		const dateMonth = fecha ? fecha.split('-')[1] : todayDate.split('/')[1];
 
@@ -132,10 +130,12 @@ export const computeBalance = async (
 		const sheet = await getHistory(spreadsheetManager);
 		const history = computeTotalSum(sheet);
 		const balance = new BalanceDto();
+
 		[...history.totals.keys()].forEach((person) => balance.computeBalanceOf(person, history));
 		balance.computeDefaulter();
 		balance.monthTotal = [...history.totals.values()].reduce((prev, curr) => (prev += curr), 0);
 		balance.defaulterTotal = history.totals.get(balance.defaulter) ?? 0;
+		balance.getDateRange(history);
 		return balance;
 	} catch (e: any) {
 		throw e;
