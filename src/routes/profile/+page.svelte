@@ -49,7 +49,7 @@
         <Card className={"flex items-center p-4 gap-6"}>
             <CartIcon color={"var(--dark-blue)"} className={"w-20 h-20"}/>
             <div class="flex flex-col justify-center">
-                <Indicator>558.7$</Indicator>
+                <Indicator>558.7€</Indicator>
                 <span class="font-maitree text-dark-blue text-xl">Gastados este año</span>
             </div>
         </Card>
@@ -63,7 +63,7 @@
         <Card className={"flex items-center p-4 gap-6"}>
             <ScaleIcon color={"var(--dark-blue)"} className={"w-20 h-20"}/>
             <div class="flex flex-col justify-center">
-                <Indicator>-32.5$</Indicator>
+                <Indicator>-32.5€</Indicator>
                 <span class="font-maitree text-dark-blue text-xl">Debes a claudita</span>
             </div>
         </Card>
