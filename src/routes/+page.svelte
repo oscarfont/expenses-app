@@ -146,8 +146,8 @@
     </Card>
     <form class="flex flex-col p-2 gap-8" method="POST" action="?/addExpense" on:submit={handleSubmit}>
         <div class="w-full flex flex-col gap-6 justify-center">
-            <div class="w-full flex gap-2">
-                <span class="bg-main-green rounded-full">
+            <div class="w-full flex gap-2 items-center">
+                <span class="bg-main-green rounded-sm flex-none">
                     {#if user}
                         <img class="w-16 h-16 md:w-20 md:h-20 p-2 rounded-sm" src={`/${user}.png`} alt="avatar of defaulter"/>
                     {:else}

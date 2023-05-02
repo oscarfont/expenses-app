@@ -19,29 +19,6 @@
 
     $: path = $page.url.pathname;
 
-    const handleSubmit = async (event: SubmitEvent) => {
-        event.preventDefault();
-        const formData = new FormData(event.target as HTMLFormElement);
-
-        formData.append('user', user);
-
-        const response = await fetch('?/auth', {
-            method: 'POST',
-            body: formData,
-        });
-
-        if(!response.ok) error = `Contraseña incorrecta. ¿Seguro que eres ${user}...? 🤔`;
-        
-        const result: ActionResult = deserialize(await response.text());
-
-        if (result.type === 'success') {
-            const store = storable({user: user, token: result.data?.token});
-            store.set({user: user, token: result.data?.token});
-        }
-
-        window.location.reload();
-    }
-
     const toggleMenu = () => {
         if(menuToggle){
             menuToggle = false
