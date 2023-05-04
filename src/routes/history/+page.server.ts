@@ -25,9 +25,16 @@ export async function load({ params }: { params: { month: string } }) {
 	try {
 		const auth = await authManager.getToken();
 		const spreadSheetManager = new SpreadsheetManager(auth);
-		const sheet: ISpreadsheet = await getHistory(spreadSheetManager);
+		const monthsAvailable = await spreadSheetManager.getSheetNames();
+		const month = monthsAvailable[monthsAvailable.length - 1];
+
+		const sheet: ISpreadsheet = await getHistory(month, spreadSheetManager);
 		const history = computeTotalSum(sheet);
-		return { rows: history.rows, totals: history.totals };
+		return {
+			month: month,
+			rows: history.rows.filter((row) => row.category !== 'carryover'),
+			totals: history.totals
+		};
 	} catch (ex: any) {
 		throw ex;
 	}

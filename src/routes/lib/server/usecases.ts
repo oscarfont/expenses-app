@@ -10,15 +10,14 @@ import { error } from '@sveltejs/kit';
 import { env } from '$env/dynamic/private';
 
 export const getHistory = async (
+	currentMonth: string,
 	spreadsheetManager: ISpreadsheetManager
 ): Promise<ISpreadsheet> => {
 	try {
-		const currentMonthName = dateUtils.getCurrentMonthName();
 		const id = env.SPREADHSEET_ID;
-		const range = `${currentMonthName}!A1:D`;
+		const range = `${currentMonth}!A1:D`;
 		return await spreadsheetManager.readSheet(id, range);
 	} catch (ex: any) {
-		console.log(ex);
 		throw ex;
 	}
 };
@@ -32,7 +31,7 @@ export const computeTotalSum = (sheet: ISpreadsheet): IHistoryDto => {
 	const people = new Set(sheetRows.map((value) => value[0].value));
 	people.forEach((person) => {
 		const personExpenses = sheetRows
-			.filter((value) => value[0].value === person)
+			.filter((value) => value[0].value === person && value[2].value === 'comida')
 			.map((cell) =>
 				(cell[3].value as string).includes(',')
 					? parseFloat((cell[3].value as string).replace(',', '.'))
@@ -50,9 +49,24 @@ const createMonthSheet = async (
 	spreadsheetManager: ISpreadsheetManager
 ): Promise<ISpreadsheet> => {
 	try {
+		// compute the month to get the carryover from
+		const monthsAvailable = await spreadsheetManager.getSheetNames();
+		const monthToGetCarryOver = monthsAvailable[monthsAvailable.length - 1];
+
+		// compute carryover
+		const balance = await computeBalance(monthToGetCarryOver, spreadsheetManager);
+		const personCarryOvers = [...balance.personBalance.keys()].map((person: string) => {
+			let personCarryOver = balance.personBalance.get(person) ?? 0;
+			return [person, 'N.A.', 'carryover', personCarryOver < 0 ? '0' : personCarryOver];
+		});
+
+		// create new months sheet
 		await spreadsheetManager.createTab(month);
 		await spreadsheetManager.addValue(month, ['Persona', 'Fecha', 'Categoria', 'Valor']);
-		const sheet = await getHistory(spreadsheetManager);
+		for await (const carryover of personCarryOvers) {
+			spreadsheetManager.addValue(month, carryover);
+		}
+		const sheet = await getHistory(month, spreadsheetManager);
 		return sheet;
 	} catch (e: any) {
 		throw e;
@@ -73,8 +87,6 @@ export const addExpense = async (
 			? expense.toString().replace('.', ',')
 			: expense.toString();
 
-		console.log(dateUtils.fromEngToSpaDate(fecha!!));
-
 		// get month of date
 		const dateMonth = fecha ? fecha.split('-')[1] : todayDate.split('/')[1];
 
@@ -85,7 +97,7 @@ export const addExpense = async (
 		// check if there is historical data for current month
 		let sheet: ISpreadsheet;
 		try {
-			sheet = await getHistory(spreadsheetManager);
+			sheet = await getHistory(currentMonthName, spreadsheetManager);
 		} catch (e: any) {
 			if (e?.response?.data?.error?.message.includes('parse')) {
 				try {
@@ -126,15 +138,19 @@ export const addExpense = async (
 };
 
 export const computeBalance = async (
+	month: string,
 	spreadsheetManager: ISpreadsheetManager
 ): Promise<IBalanceDto> => {
 	try {
-		const sheet = await getHistory(spreadsheetManager);
+		const sheet = await getHistory(month, spreadsheetManager);
 		const history = computeTotalSum(sheet);
 		const balance = new BalanceDto();
+
 		[...history.totals.keys()].forEach((person) => balance.computeBalanceOf(person, history));
 		balance.computeDefaulter();
 		balance.monthTotal = [...history.totals.values()].reduce((prev, curr) => (prev += curr), 0);
+		balance.defaulterTotal = history.totals.get(balance.defaulter) ?? 0;
+		balance.getDateRange(history);
 		return balance;
 	} catch (e: any) {
 		throw e;

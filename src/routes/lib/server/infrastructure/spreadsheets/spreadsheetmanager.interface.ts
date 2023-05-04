@@ -7,6 +7,7 @@ export interface ISpreadsheetManager {
 	toSpreadSheet(id: string, dto: ISpreadsheetDto): ISpreadsheet;
 
 	readSheet(id: string, range: string): Promise<ISpreadsheet>;
+	getSheetNames(): Promise<Array<string>>;
 
 	addValue(month: string, value: Array<any>): Promise<number>;
 	updateValue(month: string, row: Map<number, Cell<any>[]>, value: string): Promise<number>;

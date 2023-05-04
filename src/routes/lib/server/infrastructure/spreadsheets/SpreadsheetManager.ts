@@ -84,6 +84,7 @@ class SpreadsheetManager implements ISpreadsheetManager {
 		// TODO: Implement method
 		return this.sheet!!;
 	}
+
 	async readSheet(id: string, range: string): Promise<ISpreadsheet> {
 		try {
 			const res = (await this.spreadsheetsClient.spreadsheets.values.get({
@@ -92,6 +93,18 @@ class SpreadsheetManager implements ISpreadsheetManager {
 			})) as ISpreadsheetDto;
 
 			return this.toSpreadSheet(id, res);
+		} catch (e: any) {
+			throw e;
+		}
+	}
+
+	async getSheetNames(): Promise<string[]> {
+		const spreadsheetId = env.SPREADHSEET_ID;
+		try {
+			const res = await this.spreadsheetsClient.spreadsheets.get({
+				spreadsheetId: spreadsheetId
+			});
+			return res.data.sheets?.map((sheet) => sheet.properties?.title ?? '') ?? [''];
 		} catch (e: any) {
 			throw e;
 		}

@@ -16,7 +16,12 @@ module.exports = {
 			'pewter-dark': '#839489' /*Main brand dark color*/,
 			'granny-smith-apple': '#a7e28d' /*Dark accent*/,
 			'tom-thumb': '#3a5c34' /*Dark shades*/,
-			'error-red': 'rgb(153 27 27)'
+			'error-red': 'rgb(153 27 27)',
+			'light-green': '#C6FFD8',
+			'main-green': '#B4EBCA',
+			'dark-blue': '#1B3B54',
+			'electric-blue': '#2821A6',
+			'light-blue': '#3CB1FF'
 		}
 	},
 	plugins: []
