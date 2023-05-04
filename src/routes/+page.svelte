@@ -96,7 +96,7 @@
                     {/if}
                 </span>
                 <span class="w-full p-2">
-                    <Button disabled={user === undefined} className={"w-full"}>Añadir gasto</Button>
+                    <Button disabled={user === undefined} className={"w-full"} type={"submit"}>Añadir gasto</Button>
                 </span>
             </div>
             {#if user}

@@ -49,8 +49,23 @@ const createMonthSheet = async (
 	spreadsheetManager: ISpreadsheetManager
 ): Promise<ISpreadsheet> => {
 	try {
+		// compute the month to get the carryover from
+		const monthsAvailable = await spreadsheetManager.getSheetNames();
+		const monthToGetCarryOver = monthsAvailable[monthsAvailable.length - 1];
+
+		// compute carryover
+		const balance = await computeBalance(monthToGetCarryOver, spreadsheetManager);
+		const personCarryOvers = [...balance.personBalance.keys()].map((person: string) => {
+			let personCarryOver = balance.personBalance.get(person) ?? 0;
+			return [person, 'N.A.', 'carryover', personCarryOver < 0 ? '0' : personCarryOver];
+		});
+
+		// create new months sheet
 		await spreadsheetManager.createTab(month);
 		await spreadsheetManager.addValue(month, ['Persona', 'Fecha', 'Categoria', 'Valor']);
+		for await (const carryover of personCarryOvers) {
+			spreadsheetManager.addValue(month, carryover);
+		}
 		const sheet = await getHistory(month, spreadsheetManager);
 		return sheet;
 	} catch (e: any) {
