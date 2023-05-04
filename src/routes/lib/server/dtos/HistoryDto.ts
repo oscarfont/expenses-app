@@ -24,6 +24,7 @@ class HistoryDto implements IHistoryDto {
 				this.rows.push({
 					person: values[0].value,
 					date: values[1].value,
+					category: values[2].value,
 					value: this.parseNumber(values[3].value)
 				});
 			key = keysIter.next();

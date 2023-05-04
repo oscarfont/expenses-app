@@ -31,7 +31,7 @@ export const computeTotalSum = (sheet: ISpreadsheet): IHistoryDto => {
 	const people = new Set(sheetRows.map((value) => value[0].value));
 	people.forEach((person) => {
 		const personExpenses = sheetRows
-			.filter((value) => value[0].value === person)
+			.filter((value) => value[0].value === person && value[2].value === 'comida')
 			.map((cell) =>
 				(cell[3].value as string).includes(',')
 					? parseFloat((cell[3].value as string).replace(',', '.'))

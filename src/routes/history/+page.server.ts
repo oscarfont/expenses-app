@@ -30,7 +30,11 @@ export async function load({ params }: { params: { month: string } }) {
 
 		const sheet: ISpreadsheet = await getHistory(month, spreadSheetManager);
 		const history = computeTotalSum(sheet);
-		return { month: month, rows: history.rows, totals: history.totals };
+		return {
+			month: month,
+			rows: history.rows.filter((row) => row.category !== 'carryover'),
+			totals: history.totals
+		};
 	} catch (ex: any) {
 		throw ex;
 	}

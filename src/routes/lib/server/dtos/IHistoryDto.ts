@@ -3,6 +3,7 @@ import type { ISpreadsheet } from '../domain/spreadsheet.interface';
 export type entry = {
 	person: string;
 	date: string;
+	category: string;
 	value: number;
 };
 
