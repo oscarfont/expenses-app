@@ -11,7 +11,6 @@
 	import WarningIcon from "../components/icons/WarningIcon.svelte";
 
     export let data;
-    const mes = 'Abril';
     const thereIsLocalStorage: boolean = typeof window !== 'undefined' && localStorage?.storable;
     const { user } = thereIsLocalStorage ? JSON.parse(window.localStorage.storable) : { user: undefined };
     const startParts = data?.startDate.split('/');
@@ -55,7 +54,7 @@
         <section class="flex flex-col px-2 py-6 gap-4">
             <span class="flex gap-4 font-maitree text-3xl text-dark-blue items-center">
                 <ScaleIcon color={"var(--dark-blue)"} className={'w-8 h-8'}/>
-                Abril
+                {data?.balanceMonth}
             </span>
             <Indicator>
                 {data?.monthTotal.toFixed(2) ?? '0.00'} €

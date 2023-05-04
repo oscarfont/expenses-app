@@ -4,13 +4,12 @@
 	import FileIcon from '../../components/icons/FileIcon.svelte';
     import type { PageData } from './$types';
     export let data: PageData;
-    const mes = 'Abril';
 </script>
 <section class="w-full h-full max-h-screen max-width p-2 md:py-4 md:px-8 flex flex-col gap-4 overflow-auto">
     <Card className={"p-4 flex flex-col gap-4 md:gap-6"}>
         <span class="flex gap-4 font-maitree text-3xl text-dark-blue items-center">
             <FileIcon color={"var(--dark-blue)"} className={'w-8 h-8'}/>
-            Abril
+            {data?.month}
         </span>
         <div class="w-full md:p-2 flex gap-4 justify-between">
             <span class="flex gap-4">
