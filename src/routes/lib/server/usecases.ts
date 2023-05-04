@@ -10,13 +10,12 @@ import { error } from '@sveltejs/kit';
 import { env } from '$env/dynamic/private';
 
 export const getHistory = async (
+	currentMonth: string,
 	spreadsheetManager: ISpreadsheetManager
 ): Promise<ISpreadsheet> => {
 	try {
-		//const currentMonthName = dateUtils.getCurrentMonthName();
-		const currentMonthName = 'Abril';
 		const id = env.SPREADHSEET_ID;
-		const range = `${currentMonthName}!A1:D`;
+		const range = `${currentMonth}!A1:D`;
 		return await spreadsheetManager.readSheet(id, range);
 	} catch (ex: any) {
 		throw ex;
@@ -52,7 +51,7 @@ const createMonthSheet = async (
 	try {
 		await spreadsheetManager.createTab(month);
 		await spreadsheetManager.addValue(month, ['Persona', 'Fecha', 'Categoria', 'Valor']);
-		const sheet = await getHistory(spreadsheetManager);
+		const sheet = await getHistory(month, spreadsheetManager);
 		return sheet;
 	} catch (e: any) {
 		throw e;
@@ -83,7 +82,7 @@ export const addExpense = async (
 		// check if there is historical data for current month
 		let sheet: ISpreadsheet;
 		try {
-			sheet = await getHistory(spreadsheetManager);
+			sheet = await getHistory(currentMonthName, spreadsheetManager);
 		} catch (e: any) {
 			if (e?.response?.data?.error?.message.includes('parse')) {
 				try {
@@ -124,10 +123,11 @@ export const addExpense = async (
 };
 
 export const computeBalance = async (
+	month: string,
 	spreadsheetManager: ISpreadsheetManager
 ): Promise<IBalanceDto> => {
 	try {
-		const sheet = await getHistory(spreadsheetManager);
+		const sheet = await getHistory(month, spreadsheetManager);
 		const history = computeTotalSum(sheet);
 		const balance = new BalanceDto();
 

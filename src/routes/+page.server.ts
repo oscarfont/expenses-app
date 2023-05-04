@@ -1,7 +1,7 @@
 import type { Actions } from './$types';
 import AuthManager from './lib/server/infrastructure/auth/AuthManager';
 import SpreadsheetManager from './lib/server/infrastructure/spreadsheets/SpreadsheetManager';
-import { addExpense, computeBalance, logIn } from './lib/server/usecases';
+import { addExpense, computeBalance } from './lib/server/usecases';
 
 export const actions = {
 	addExpense: async ({ request }: { request: Request }) => {
@@ -27,8 +27,12 @@ export async function load() {
 	try {
 		const auth = await authManager.getToken();
 		const spreadSheetManager = new SpreadsheetManager(auth);
-		const balance = await computeBalance(spreadSheetManager);
+		const monthsAvailable = await spreadSheetManager.getSheetNames();
+		const month = monthsAvailable[monthsAvailable.length - 1];
+
+		const balance = await computeBalance(month, spreadSheetManager);
 		return {
+			balanceMonth: month,
 			defaulter: balance.defaulter,
 			personBalance: balance.personBalance,
 			monthTotal: balance.monthTotal,
