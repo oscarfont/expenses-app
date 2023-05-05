@@ -44,6 +44,27 @@ export const computeTotalSum = (sheet: ISpreadsheet): IHistoryDto => {
 	return history;
 };
 
+export const getCarryOvers = (sheet: ISpreadsheet): Map<string, number> => {
+	const personCarryOvers = new Map<string, number>();
+
+	const sheetRows = [...sheet.rows.values()].slice(1);
+	const people = new Set(sheetRows.map((value) => value[0].value));
+	people.forEach((peep: string) => {
+		const carryoverRow = sheetRows.find(
+			(value) => value[0].value === peep && value[2].value === 'carryover'
+		);
+		if (!carryoverRow) return;
+
+		const carryOverFloat = (carryoverRow && (carryoverRow[3].value as string)).includes(',')
+			? parseFloat((carryoverRow[3].value as string).replace(',', '.'))
+			: parseFloat(carryoverRow[3].value);
+
+		personCarryOvers.set(peep, carryOverFloat);
+	});
+
+	return personCarryOvers;
+};
+
 const createMonthSheet = async (
 	month: string,
 	spreadsheetManager: ISpreadsheetManager
@@ -57,7 +78,7 @@ const createMonthSheet = async (
 		const balance = await computeBalance(monthToGetCarryOver, spreadsheetManager);
 		const personCarryOvers = [...balance.personBalance.keys()].map((person: string) => {
 			let personCarryOver = balance.personBalance.get(person) ?? 0;
-			return [person, 'N.A.', 'carryover', personCarryOver < 0 ? '0' : personCarryOver];
+			return [person, 'N.A.', 'carryover', personCarryOver];
 		});
 
 		// create new months sheet
@@ -144,6 +165,7 @@ export const computeBalance = async (
 	try {
 		const sheet = await getHistory(month, spreadsheetManager);
 		const history = computeTotalSum(sheet);
+		history.carryovers = getCarryOvers(sheet);
 		const balance = new BalanceDto();
 
 		[...history.totals.keys()].forEach((person) => balance.computeBalanceOf(person, history));

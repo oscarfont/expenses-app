@@ -5,9 +5,6 @@
 	import Button from "../../components/Button.svelte";
 	import Card from "../../components/Card.svelte";
 	import Indicator from "../../components/Indicator.svelte";
-	import CartIcon from "../../components/icons/CartIcon.svelte";
-	import ArrowIcon from "../../components/icons/ArrowIcon.svelte";
-	import ScaleIcon from "../../components/icons/ScaleIcon.svelte";
 
     const thereIsLocalStorage: boolean = typeof window !== 'undefined' && localStorage?.storable;
     let user: string = "";
@@ -76,7 +73,7 @@
             <img class="w-20 h-20" src={`/${loggedInUser.user}.png`} alt="avatar of user"/>
             <div class="flex flex-col justify-center">
                 <span class="font-maitree text-dark-blue text-2xl">Hola</span>
-                <Indicator>Ofontito</Indicator>
+                <Indicator>{loggedInUser.user}</Indicator>
             </div>
         </Card>
         <Button className={"w-full"} onClick={logOut}>Cerrar sesión</Button>

@@ -19,7 +19,7 @@ class BalanceDto implements IBalanceDto {
 	}
 
 	computeBalanceOf(person: string, history: IHistoryDto): void {
-		const personTotal = history.totals.get(person) ?? 0;
+		const personTotal = (history.totals.get(person) ?? 0) + (history.carryovers.get(person) ?? 0);
 		[...history.totals.keys()].forEach((currPerson) => {
 			if (person !== currPerson) {
 				const balance =

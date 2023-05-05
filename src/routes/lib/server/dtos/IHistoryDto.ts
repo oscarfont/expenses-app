@@ -10,6 +10,7 @@ export type entry = {
 export interface IHistoryDto {
 	rows: Array<entry>;
 	totals: Map<string, number>;
+	carryovers: Map<string, number>;
 	fromSpreadSheet(sheet: ISpreadsheet): void;
 	addTotal(person: string, total: number): void;
 }
