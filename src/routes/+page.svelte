@@ -9,6 +9,8 @@
 	import ScaleIcon from "../components/icons/ScaleIcon.svelte";
 	import CartIcon from "../components/icons/CartIcon.svelte";
 	import WarningIcon from "../components/icons/WarningIcon.svelte";
+	import CalendarIcon from "../components/icons/CalendarIcon.svelte";
+	import EuroIcon from "../components/icons/EuroIcon.svelte";
 
     export let data;
     const thereIsLocalStorage: boolean = typeof window !== 'undefined' && localStorage?.storable;
@@ -89,42 +91,40 @@
             </span>
         </div>
     </Card>
-    <form class="flex flex-col p-2 gap-8" method="POST" action="?/addExpense" on:submit={handleSubmit}>
-        <div class="w-full flex flex-col gap-6 justify-center">
-            <div class="w-full flex gap-2 items-center">
-                <span class="bg-main-green rounded-sm flex-none">
-                    {#if user}
-                        <img class="w-16 h-16 md:w-20 md:h-20 p-2 rounded-sm" src={`/${user}.png`} alt="avatar of defaulter"/>
-                    {:else}
-                        <UnkownUserIcon color={'var(--dark-blue)'} className={'w-16 h-16 md:w-18 md:h-18 p-2'} stroke={"2"}/>
-                    {/if}
-                </span>
-                <span class="w-full p-2">
-                    <Button disabled={user === undefined} className={"w-full"} type={"submit"}>Añadir gasto</Button>
-                </span>
-            </div>
-            {#if user}
-                <label class="w-full flex flex-col">
-                    <input name="fecha" id="fecha" type="date" class="bg-main-green p-4 font-sintony text-dark-blue rounded-sm">
+    {#if user}
+        <form class="flex flex-col p-2 gap-8" method="POST" action="?/addExpense" on:submit={handleSubmit}>
+            <div class="w-full flex flex-col gap-6 justify-center">
+                <label class="w-full flex gap-2 items-center">
+                    <CalendarIcon color={"var(--dark-blue)"} className={'w-8 h-8'} />
+                    <input name="fecha" id="fecha" type="date" class="flex-grow bg-main-green p-4 font-sintony text-dark-blue rounded-sm">
                 </label>
                 <div class="w-full flex flex-col gap-4">
-                    <label class="w-full flex flex-col">
-                        <input name="gasto" id="gasto" type="number" class="bg-main-green p-4 font-sintony text-dark-blue rounded-sm" step=".01">
+                    <label class="w-full flex gap-2 items-center">
+                        <EuroIcon color={"var(--dark-blue)"} className={'w-8 h-8'} />
+                        <input name="gasto" id="gasto" type="number" class="flex-grow bg-main-green p-4 font-sintony text-dark-blue rounded-sm" step=".01" required>
                     </label>
                 </div>
-            {:else}
-                <Card className={"border border-solid border-dark-blue p-2"}>
-                    <div class="w-full flex items-center justify-center gap-2">
-                        <WarningIcon color={"var(--dark-blue)"} className={"w-12 h-12 md:w-16 md:h-16"}/>
-                        <span class="font-maitree text-dark-blue text-md whitespace-nowrap">Para añadir gastos</span>
-                        <span class="flex-1 p-2">
-                            <Button className={"w-full"}>
-                                <a href="/profile">Inicia sesión</a>
-                            </Button>
-                        </span>
-                    </div>
-                </Card>
-            {/if}
-        </div> 
-    </form>
+                <div class="w-full flex gap-2 items-center">
+                    <span class="bg-main-green rounded-sm flex-none">
+                        <img class="w-16 h-16 md:w-20 md:h-20 p-2 rounded-sm" src={`/${user}.png`} alt="avatar of defaulter"/>
+                    </span>
+                    <span class="w-full p-2">
+                        <Button className={"w-full"} type={"submit"}>Añadir gasto</Button>
+                    </span>
+                </div>
+            </div> 
+        </form>
+    {:else}
+        <Card className={"border border-solid border-dark-blue p-2"}>
+            <div class="w-full flex items-center justify-center gap-2">
+                <WarningIcon color={"var(--dark-blue)"} className={"w-12 h-12 md:w-16 md:h-16"}/>
+                <span class="font-maitree text-dark-blue text-md whitespace-nowrap">Para añadir gastos</span>
+                <span class="flex-1 p-2">
+                    <Button className={"w-full"}>
+                        <a href="/profile">Inicia sesión</a>
+                    </Button>
+                </span>
+            </div>
+        </Card>
+    {/if}
 </section>

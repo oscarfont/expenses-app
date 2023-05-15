@@ -16,13 +16,7 @@
 
     $: path = $page.url.pathname;
 
-    const toggleMenu = () => {
-        if(menuToggle){
-            menuToggle = false
-        }else{
-            menuToggle = true
-        }
-    }
+    const toggleMenu = () => { menuToggle = menuToggle ? false : true; }
 </script>
 
 <nav class={`nav bg-main-green overflow-hidden w-full max-width flex flex-col gap-2 p-2 ${menuToggle ? 'is-open' : 'is-closed'}`}>
