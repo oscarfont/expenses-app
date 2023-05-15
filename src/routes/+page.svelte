@@ -19,19 +19,23 @@
     const end = `${endParts[0]}/${endParts[1]}`;
 
     const handleSubmit = async (event: SubmitEvent) => {
-        event.preventDefault();
-        const formData = new FormData(event.target as HTMLFormElement);
+        try{
+            event.preventDefault();
+            const formData = new FormData(event.target as HTMLFormElement);
 
-        formData.append('user', user);
+            formData.append('user', user);
 
-        const response = await fetch('?/addExpense', {
-            method: 'POST',
-            body: formData,
-        });
-        
-        const result: ActionResult = deserialize(await response.text());
+            const response = await fetch('?/addExpense', {
+                method: 'POST',
+                body: formData,
+            });
+            
+            const result: ActionResult = deserialize(await response.text());
 
-        if(result.type === "success") window.location.reload();
+            if(result.type === "success") window.location.reload();
+        }catch(e: any){
+            throw e;
+        }
     }
 </script>
 

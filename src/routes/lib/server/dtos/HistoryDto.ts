@@ -18,19 +18,17 @@ class HistoryDto implements IHistoryDto {
 	}
 
 	fromSpreadSheet(sheet: ISpreadsheet): void {
-		const keysIter = sheet.rows.keys();
-		let key = keysIter.next();
-		while (!key.done) {
-			const values = sheet.rows.get(key.value);
-			if (values && values[0].value !== 'Persona')
+		const rowIndexes = [...sheet.rows.keys()];
+		rowIndexes.forEach((rowIndex, index) => {
+			const values = sheet.rows.get(rowIndex);
+			if (values && index !== 0)
 				this.rows.push({
 					person: values[0].value,
 					date: values[1].value,
 					category: values[2].value,
 					value: this.parseNumber(values[3].value)
 				});
-			key = keysIter.next();
-		}
+		});
 	}
 
 	addTotal(person: string, total: number): void {

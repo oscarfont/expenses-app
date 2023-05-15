@@ -42,7 +42,8 @@ class BalanceDto implements IBalanceDto {
 	getDateRange(history: IHistoryDto): void {
 		// get min and max indexes of rows
 		const rowIndexes = [...history.rows.keys()];
-		const min = rowIndexes[2]; // exclude header and carryovers
+		const numOfCarryOvers = history.rows.filter((row) => row.category === 'carryover').length;
+		const min = rowIndexes[numOfCarryOvers]; // exclude carryovers
 		const max = rowIndexes[rowIndexes.length - 1];
 
 		this.startDate = history.rows[min].date;

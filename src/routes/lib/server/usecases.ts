@@ -27,16 +27,11 @@ export const computeTotalSum = (sheet: ISpreadsheet): IHistoryDto => {
 	history.fromSpreadSheet(sheet);
 
 	// compute and add totals
-	const sheetRows = [...sheet.rows.values()].slice(1);
-	const people = new Set(sheetRows.map((value) => value[0].value));
+	const people = new Set(history.rows.map((value) => value.person));
 	people.forEach((person) => {
-		const personExpenses = sheetRows
-			.filter((value) => value[0].value === person && value[2].value === 'comida')
-			.map((cell) =>
-				(cell[3].value as string).includes(',')
-					? parseFloat((cell[3].value as string).replace(',', '.'))
-					: parseFloat(cell[3].value)
-			);
+		const personExpenses = history.rows
+			.filter((value) => value.person === person && value.category === 'comida')
+			.map((cell) => cell.value);
 		const total = personExpenses.reduce((acc, curr) => acc + curr, 0);
 		history.addTotal(person, total);
 	});
@@ -44,23 +39,11 @@ export const computeTotalSum = (sheet: ISpreadsheet): IHistoryDto => {
 	return history;
 };
 
-export const getCarryOvers = (sheet: ISpreadsheet): Map<string, number> => {
+export const getCarryOvers = (history: IHistoryDto): Map<string, number> => {
 	const personCarryOvers = new Map<string, number>();
 
-	const sheetRows = [...sheet.rows.values()].slice(1);
-	const people = new Set(sheetRows.map((value) => value[0].value));
-	people.forEach((peep: string) => {
-		const carryoverRow = sheetRows.find(
-			(value) => value[0].value === peep && value[2].value === 'carryover'
-		);
-		if (!carryoverRow) return;
-
-		const carryOverFloat = (carryoverRow && (carryoverRow[3].value as string)).includes(',')
-			? parseFloat((carryoverRow[3].value as string).replace(',', '.'))
-			: parseFloat(carryoverRow[3].value);
-
-		personCarryOvers.set(peep, carryOverFloat);
-	});
+	const carryOverRows = history.rows.filter((row) => row.category === 'carryover');
+	carryOverRows.forEach((row) => personCarryOvers.set(row.person, row.value));
 
 	return personCarryOvers;
 };
@@ -101,7 +84,7 @@ export const addExpense = async (
 	fecha?: string
 ): Promise<number> => {
 	try {
-		// get historical data and todays date
+		// get todays date and treat expense
 		const currentMonthName = dateUtils.getCurrentMonthName();
 		const todayDate = dateUtils.getTodaysDateString();
 		const treatedExpense = expense.toString().includes('.')
@@ -130,6 +113,8 @@ export const addExpense = async (
 				throw e;
 			}
 		}
+
+		if (!sheet) throw Error('No se ha podido crear o recuperar la nueva hoja correctamente :(');
 
 		// get the date to write to the sheet
 		const dateToAdd = fecha ? dateUtils.fromEngToSpaDate(fecha) : todayDate;
@@ -165,7 +150,7 @@ export const computeBalance = async (
 	try {
 		const sheet = await getHistory(month, spreadsheetManager);
 		const history = computeTotalSum(sheet);
-		history.carryovers = getCarryOvers(sheet);
+		history.carryovers = getCarryOvers(history);
 		const balance = new BalanceDto();
 
 		[...history.totals.keys()].forEach((person) => balance.computeBalanceOf(person, history));
