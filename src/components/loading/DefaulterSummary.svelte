@@ -9,7 +9,7 @@
             <div class="rounded-full w-16 h-16 md:w-20 md:h-20 bg-light-green animate-pulse"></div>
         </span>
         <div class="flex flex-col">
-            <span class="rounded-sm bg-light-green w-32 h-16 animate-pulse"></span>
+            <span class="rounded-sm bg-light-green w-32 h-12 animate-pulse"></span>
             <span class="font-maitree text-dark-blue text-md">Gastados este mes</span>
             <span class="font-sintony text-dark-blue text-xs font-bold">Paga la siguiente compra</span>
         </div>

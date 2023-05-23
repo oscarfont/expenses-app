@@ -14,6 +14,7 @@
 	import { getBalanceData } from "./services/BalanceService";
 	import BalanceSummary from "../components/loading/BalanceSummary.svelte";
 	import DefaulterSummary from "../components/loading/DefaulterSummary.svelte";
+	import ExpenseForm from "../components/loading/ExpenseForm.svelte";
 
     const thereIsLocalStorage: boolean = typeof window !== 'undefined' && localStorage?.storable;
     const { user } = thereIsLocalStorage ? JSON.parse(window.localStorage.storable) : { user: undefined };
@@ -43,13 +44,12 @@
     }
 </script>
 
-<section class="w-full h-full max-width p-2 md:py-4 md:px-8 flex flex-col gap-6 overflow-y-auto bg-light-green">
-    <BalanceSummary />
-    <DefaulterSummary />
-</section>
-
-<!--{#await getBalanceData()}
-    Loading...
+{#await getBalanceData()}
+    <section class="w-full h-full max-width p-2 md:py-4 md:px-8 flex flex-col gap-6 overflow-y-auto bg-light-green">
+        <BalanceSummary />
+        <DefaulterSummary />
+        <ExpenseForm />
+    </section>
 {:then data}
     <section class="w-full h-full max-width p-2 md:py-4 md:px-8 flex flex-col gap-6 overflow-y-auto bg-light-green">
         <Card className={"p-4"}>
@@ -57,14 +57,13 @@
                 <span class="flex gap-4">
                     <img class="w-12 md:w-16 rounded-sm" src={`/ofontito.png`} alt="avatar of user"/>
                     <span class="flex flex-col justify-center">
-                        <Badge value={data?.personBalance.get('ofontito') ?? 0.00}/>
+                        <Badge value={data?.personBalance?.get('ofontito') ?? 0.00}/>
                     </span>
                 </span>
                 <span class="flex gap-4">
                     <img class="w-12 md:w-16 rounded-sm" src={`/claudita.png`} alt="avatar of user"/>
                     <span class="flex flex-col justify-center">
-                        <Badge value={data?.personBalance.get('ofontito') ?? 0.00}/>
-                        {data.personBalance}
+                        <Badge value={data?.personBalance?.get('claudita') ?? 0.00}/>
                     </span>
                 </span>
             </head>
@@ -139,4 +138,4 @@
             </Card>
         {/if}
     </section>
-{/await}-->
+{/await}
