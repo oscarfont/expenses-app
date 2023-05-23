@@ -11,14 +11,15 @@
 	import WarningIcon from "../components/icons/WarningIcon.svelte";
 	import CalendarIcon from "../components/icons/CalendarIcon.svelte";
 	import EuroIcon from "../components/icons/EuroIcon.svelte";
+	import type { IBalanceDto } from "./lib/server/dtos/IBalanceDto";
 
-    export let data;
+    const getBalanceData = async() => {return await fetch("/api/balance").then<IBalanceDto>(res => res.json());}
     const thereIsLocalStorage: boolean = typeof window !== 'undefined' && localStorage?.storable;
     const { user } = thereIsLocalStorage ? JSON.parse(window.localStorage.storable) : { user: undefined };
-    const startParts = data?.startDate.split('/');
-    const start = `${startParts[0]}/${startParts[1]}`;
-    const endParts = data?.endDate.split('/');
-    const end = `${endParts[0]}/${endParts[1]}`;
+    //const startParts = data?.startDate.split('/');
+    //const start = `${startParts[0]}/${startParts[1]}`;
+    //const endParts = data?.endDate.split('/');
+    //const end = `${endParts[0]}/${endParts[1]}`;
 
     const handleSubmit = async (event: SubmitEvent) => {
         try{
@@ -41,7 +42,13 @@
     }
 </script>
 
-<section class="w-full h-full max-width p-2 md:py-4 md:px-8 flex flex-col gap-6 overflow-y-auto bg-light-green">
+{#await getBalanceData()}
+    Loading...
+{:then}
+    Done!
+{/await}
+
+<!--<section class="w-full h-full max-width p-2 md:py-4 md:px-8 flex flex-col gap-6 overflow-y-auto bg-light-green">
     <Card className={"p-4"}>
         <head class="w-full px-2 py-8 flex gap-4 justify-between border-b-2 border-solid border-dark-blue">
             <span class="flex gap-4">
@@ -127,4 +134,4 @@
             </div>
         </Card>
     {/if}
-</section>
+</section>-->

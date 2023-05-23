@@ -22,7 +22,7 @@ export const actions = {
 	}
 } satisfies Actions;
 
-export async function load() {
+/*export async function load() {
 	const authManager = new AuthManager();
 	try {
 		const auth = await authManager.getToken();
@@ -43,4 +43,4 @@ export async function load() {
 	} catch (ex: any) {
 		throw ex;
 	}
-}
+}*/

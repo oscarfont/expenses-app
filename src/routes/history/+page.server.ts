@@ -20,7 +20,7 @@ export const actions = {
 	}
 } satisfies Actions;
 
-export async function load({ params }: { params: { month: string } }) {
+/*export async function load({ params }: { params: { month: string } }) {
 	const authManager = new AuthManager();
 	try {
 		const auth = await authManager.getToken();
@@ -38,4 +38,4 @@ export async function load({ params }: { params: { month: string } }) {
 	} catch (ex: any) {
 		throw ex;
 	}
-}
+}*/
