@@ -13,6 +13,7 @@
 	import EuroIcon from "../components/icons/EuroIcon.svelte";
 	import { getBalanceData } from "./services/BalanceService";
 	import BalanceSummary from "../components/loading/BalanceSummary.svelte";
+	import DefaulterSummary from "../components/loading/DefaulterSummary.svelte";
 
     const thereIsLocalStorage: boolean = typeof window !== 'undefined' && localStorage?.storable;
     const { user } = thereIsLocalStorage ? JSON.parse(window.localStorage.storable) : { user: undefined };
@@ -44,6 +45,7 @@
 
 <section class="w-full h-full max-width p-2 md:py-4 md:px-8 flex flex-col gap-6 overflow-y-auto bg-light-green">
     <BalanceSummary />
+    <DefaulterSummary />
 </section>
 
 <!--{#await getBalanceData()}
