@@ -2,10 +2,15 @@
 	import Badge from '../../components/Badge.svelte';
 	import Card from '../../components/Card.svelte';
 	import FileIcon from '../../components/icons/FileIcon.svelte';
+	import HistoryHeader from '../../components/loading/HistoryHeader.svelte';
+	import HistoryTable from '../../components/loading/HistoryTable.svelte';
 	import { getHistoricalData } from '../services/HistoryService';
 </script>
 {#await getHistoricalData()}
-    Loading...
+<section class="w-full h-full max-h-screen max-width p-2 md:py-4 md:px-8 flex flex-col gap-4 overflow-auto">
+    <HistoryHeader />
+    <HistoryTable />
+</section>
 {:then data}
     <section class="w-full h-full max-h-screen max-width p-2 md:py-4 md:px-8 flex flex-col gap-4 overflow-auto">
         <Card className={"p-4 flex flex-col gap-4 md:gap-6"}>

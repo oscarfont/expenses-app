@@ -57,13 +57,13 @@
                 <span class="flex gap-4">
                     <img class="w-12 md:w-16 rounded-sm" src={`/ofontito.png`} alt="avatar of user"/>
                     <span class="flex flex-col justify-center">
-                        <Badge value={data?.personBalance?.get('ofontito') ?? 0.00}/>
+                        <Badge value={0.00}/>
                     </span>
                 </span>
                 <span class="flex gap-4">
                     <img class="w-12 md:w-16 rounded-sm" src={`/claudita.png`} alt="avatar of user"/>
                     <span class="flex flex-col justify-center">
-                        <Badge value={data?.personBalance?.get('claudita') ?? 0.00}/>
+                        <Badge value={0.00}/>
                     </span>
                 </span>
             </head>
