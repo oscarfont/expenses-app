@@ -17,7 +17,7 @@ export const GET = (async () => {
 		return json({
 			month: month,
 			rows: history.rows.filter((row) => row.category !== 'carryover'),
-			totals: history.totals
+			totals: Object.fromEntries(history.totals)
 		});
 	} catch (ex: any) {
 		throw ex;

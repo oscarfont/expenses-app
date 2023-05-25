@@ -15,7 +15,7 @@ export const GET = (async () => {
 		return json({
 			balanceMonth: month,
 			defaulter: balance.defaulter,
-			personBalance: balance.personBalance,
+			personBalance: Object.fromEntries(balance.personBalance),
 			monthTotal: balance.monthTotal,
 			defaulterTotal: balance.defaulterTotal,
 			startDate: balance.startDate,

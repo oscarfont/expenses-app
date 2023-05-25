@@ -2,11 +2,13 @@ import type { ISpreadsheet } from '../domain/spreadsheet.interface';
 import type { IHistoryDto, entry } from './IHistoryDto';
 
 class HistoryDto implements IHistoryDto {
+	month: string;
 	rows: Array<entry>;
 	totals: Map<string, number>;
 	carryovers: Map<string, number>;
 
 	constructor() {
+		this.month = '';
 		this.rows = new Array<entry>();
 		this.totals = new Map<string, number>();
 		this.carryovers = new Map<string, number>();

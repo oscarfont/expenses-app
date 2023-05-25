@@ -8,6 +8,7 @@ export type entry = {
 };
 
 export interface IHistoryDto {
+	month: string;
 	rows: Array<entry>;
 	totals: Map<string, number>;
 	carryovers: Map<string, number>;

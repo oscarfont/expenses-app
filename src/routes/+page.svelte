@@ -57,20 +57,20 @@
                 <span class="flex gap-4">
                     <img class="w-12 md:w-16 rounded-sm" src={`/ofontito.png`} alt="avatar of user"/>
                     <span class="flex flex-col justify-center">
-                        <Badge value={0.00}/>
+                        <Badge value={new Map(Object.entries(data?.personBalance)).get("ofontito") ?? 0.00}/>
                     </span>
                 </span>
                 <span class="flex gap-4">
                     <img class="w-12 md:w-16 rounded-sm" src={`/claudita.png`} alt="avatar of user"/>
                     <span class="flex flex-col justify-center">
-                        <Badge value={0.00}/>
+                        <Badge value={new Map(Object.entries(data?.personBalance)).get("claudita") ?? 0.00}/>
                     </span>
                 </span>
             </head>
             <section class="flex flex-col px-2 py-6 gap-4">
                 <span class="flex gap-4 font-maitree text-3xl text-dark-blue items-center">
                     <ScaleIcon color={"var(--dark-blue)"} className={'w-8 h-8'}/>
-                    {"April"}
+                    {data?.balanceMonth}
                 </span>
                 <Indicator>
                     {data?.monthTotal.toFixed(2) ?? '0.00'} €

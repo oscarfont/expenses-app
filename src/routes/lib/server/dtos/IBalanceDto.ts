@@ -3,6 +3,7 @@ import type { IHistoryDto } from './IHistoryDto';
 export interface IBalanceDto {
 	defaulter: string;
 	personBalance: Map<string, number>;
+	balanceMonth: string;
 	monthTotal: number;
 	defaulterTotal: number;
 	startDate: string;
