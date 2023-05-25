@@ -19,23 +19,3 @@ export const actions = {
 		}
 	}
 } satisfies Actions;
-
-/*export async function load({ params }: { params: { month: string } }) {
-	const authManager = new AuthManager();
-	try {
-		const auth = await authManager.getToken();
-		const spreadSheetManager = new SpreadsheetManager(auth);
-		const monthsAvailable = await spreadSheetManager.getSheetNames();
-		const month = monthsAvailable[monthsAvailable.length - 1];
-
-		const sheet: ISpreadsheet = await getHistory(month, spreadSheetManager);
-		const history = computeTotalSum(sheet);
-		return {
-			month: month,
-			rows: history.rows.filter((row) => row.category !== 'carryover'),
-			totals: history.totals
-		};
-	} catch (ex: any) {
-		throw ex;
-	}
-}*/
