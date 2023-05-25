@@ -21,26 +21,3 @@ export const actions = {
 		}
 	}
 } satisfies Actions;
-
-export async function load() {
-	const authManager = new AuthManager();
-	try {
-		const auth = await authManager.getToken();
-		const spreadSheetManager = new SpreadsheetManager(auth);
-		const monthsAvailable = await spreadSheetManager.getSheetNames();
-		const month = monthsAvailable[monthsAvailable.length - 1];
-
-		const balance = await computeBalance(month, spreadSheetManager);
-		return {
-			balanceMonth: month,
-			defaulter: balance.defaulter,
-			personBalance: balance.personBalance,
-			monthTotal: balance.monthTotal,
-			defaulterTotal: balance.defaulterTotal,
-			startDate: balance.startDate,
-			endDate: balance.endDate
-		};
-	} catch (ex: any) {
-		throw ex;
-	}
-}

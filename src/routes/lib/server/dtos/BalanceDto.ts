@@ -8,6 +8,7 @@ class BalanceDto implements IBalanceDto {
 	defaulterTotal: number;
 	startDate: string;
 	endDate: string;
+	balanceMonth: string;
 
 	constructor() {
 		this.defaulter = '';
@@ -16,6 +17,7 @@ class BalanceDto implements IBalanceDto {
 		this.defaulterTotal = 0;
 		this.startDate = '';
 		this.endDate = '';
+		this.balanceMonth = '';
 	}
 
 	computeBalanceOf(person: string, history: IHistoryDto): void {
