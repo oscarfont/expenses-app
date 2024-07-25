@@ -13,5 +13,5 @@ export interface ISpreadsheetManager {
 	updateValue(month: string, row: Map<number, Cell<any>[]>, value: string): Promise<number>;
 
 	createTab(name: string): Promise<void>;
-	createSheet(name: string): ISpreadsheet;
+	//createSheet(name: string): ISpreadsheet | undefined;
 }

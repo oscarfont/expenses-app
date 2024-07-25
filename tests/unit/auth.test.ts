@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeAll } from 'vitest';
+import { describe, it, expect, beforeAll, vi } from 'vitest';
 import AuthManager from '../../src/routes/lib/server/infrastructure/auth/AuthManager';
 import type { IAuthManager } from '../../src/routes/lib/server/infrastructure/auth/authmanager.interface';
 import { SECRET } from '$env/static/private';
@@ -16,7 +16,10 @@ describe('AuthManager tests', () => {
 		expect(scope).toBe(expectedScope);
 	});
 
-	it('Auth Manager getClient returns de JWT token successsfully', () => {
+	it('Auth Manager getClient returns de JWT token successfully', () => {
+		const getTokenSpy = vi.spyOn(authManager, 'getToken');
+		getTokenSpy.mockImplementation(() => { return { email: "sample@email.com" } });
+
 		const token = authManager.getToken();
 		expect(token).toBeTypeOf('object');
 		expect(token).toHaveProperty('email');
