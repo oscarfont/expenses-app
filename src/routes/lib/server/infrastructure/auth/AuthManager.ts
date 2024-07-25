@@ -4,8 +4,8 @@ import { keys } from './credentials';
 import { SECRET } from '$env/static/private';
 
 class AuthManager implements IAuthManager {
-	private authToken;
-	private scopeUrl: string;
+	private readonly authToken;
+	private readonly scopeUrl: string;
 
 	constructor() {
 		this.scopeUrl = 'https://www.googleapis.com/auth/spreadsheets';
@@ -16,12 +16,7 @@ class AuthManager implements IAuthManager {
 	}
 
 	async getToken() {
-		try {
-			await this.authToken.getClient();
-		} catch (ex: any) {
-			throw ex;
-		}
-
+		await this.authToken.getClient();
 		return this.authToken;
 	}
 
